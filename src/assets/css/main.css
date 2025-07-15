@@ -1,2 +1,50 @@
 @import './base.css';
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-blue: #01589A;
+    --color-blue1: #175CD3;
+    --color-blue-light: #E9F3FB;
+    --color-blue-deep: #026AA2;
+    --color-blue-lightest: #E6EFF5;
+
+    --color-orange: #FFF4ED;
+    --color-orange-deep: #B93815;
+
+    --color-red: #FFF1F3;
+    --color-red1: #C01048;
+
+    --color-gray-1: #7F7E83;
+
+    --color-green-light: #ECFDF3;
+    --color-green-deep: #027A48;
+
+    --color-purple-light: #F3F0FB;
+    --color-purple-deep: #6941C6;
+
+    --color-indigo-dep: #363F72;
+    --color-indigo-light: #F8F9FC;
+
+    --color-pink-deep: #C11574;
+    --color-pink-light: #F7EDF6;
+
+
+    --color-yello: #D89614;
+
+
+
+
+    --container-min495: min(495px, 100%);
+}
+
+
+/* form.validate :invalid{
+    @apply 
+} */
+
+
+/* form .validate :invalid{
+    @apply border-red-600 ring-red-500
+} */

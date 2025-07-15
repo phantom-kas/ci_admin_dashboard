@@ -2,12 +2,17 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+ 
 }
+#app{
+  height: 100%;
+}
+html{
+  height: 100%;
 
+}
 body {
+  height: 100%;
   line-height: 1.6;
   font-family:
     Inter,
