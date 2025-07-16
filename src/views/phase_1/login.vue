@@ -18,6 +18,9 @@ const formData = ref({
 const auth = useAuthStore()
 const router = useRouter()
 const handelSubmit = () => {
+// e.preventDefault();
+
+
     loading.value = true
     formData.value.validate = true
     auth.login(formData.value.email,formData.value.password)
@@ -29,6 +32,7 @@ const handelSubmit = () => {
     })
 }
 
+
 const emits = defineEmits(['loaded']);
 onMounted(() => {
     formData.value.validate = false
@@ -37,15 +41,21 @@ onMounted(() => {
         body: 'Login to Manage and Access the Dashboard Effortlessly.',
     })
 })
+
+const form = ref(null as null | HTMLFormElement)
+const handelbtnClick=()=>{
+    formData.value.validate = true
+    form.value?.requestSubmit()
+}
 </script>
 <template>
-    <form :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
+    <form ref="form" :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
         @submit.prevent="handelSubmit()">
         <Input required type="email" :data="formData" name="email" label="Email" class=" w-full mb-6" />
         <Input required :data="formData" type="password" name="password" label="Password" class=" w-full" />
         <router-link :to="{ name: 'change_password' }" class=' text-blue font-[400] cursor-pointer mt-3 mb-3'>Forgot
             password?</router-link>
-        <buttonLoads label="Login" @click=" formData.validate = true" class=" w-full mb-6" :isLoad="loading" />
+        <buttonLoads type="button" label="Login" @click="handelbtnClick()" class=" w-full mb-6" :isLoad="loading" />
 
 
         <span class=" font-[400] w-full text-center leading-4">

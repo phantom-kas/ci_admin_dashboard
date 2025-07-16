@@ -39,14 +39,19 @@ onMounted(() => {
     })
 })
 
-
+const form = ref(null as null | HTMLFormElement)
+const handelbtnClick=()=>{
+    formData.value.validate = true
+    
+    form.value?.requestSubmit()
+}
 </script>
 <template>
-    <form :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
+    <form ref="form" :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
         @submit.prevent="handelSubmit()">
         <Input required type="email" :data="formData" name="email" label="Email" class=" w-full mb-10" />
         <!-- {{ w }} -->
-        <buttonLoads label="Reset password" @click="formData.validate = true" class=" w-full mb-10" :isLoad="loading" />
+        <buttonLoads label="Reset password" @click="handelbtnClick()" class=" w-full mb-10" :isLoad="loading" />
 
 
         <span class=" font-[400] w-full text-center leading-4">

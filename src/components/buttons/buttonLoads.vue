@@ -15,12 +15,12 @@ defineProps({
         type: String
     },
     disabeldClass: {
-        default: ' disabled:bg-blue-400',
+        default: ' disabled:bg-blue-600',
         type: String
     }
     ,
     hoverClass: {
-        default: ' hover:bg-blue-400 , active:bg-blue-400',
+        default: ' hover:bg-blue-400 , active:bg-blue-700',
         type: String
     }
 })
@@ -47,8 +47,8 @@ onMounted(() => {
             </slot>
         </template>
 
-        <template v-if="isLoad">
-            <spin4Sec size="2" />
+        <template v-else>
+            <spin4Sec size="1.56" /><span class=" opacity-0">i</span>
         </template>
 
 

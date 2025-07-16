@@ -42,15 +42,22 @@ onMounted(() => {
         body: 'Create new password',
     })
 })
+
+
+const form = ref(null as null | HTMLFormElement)
+const handelbtnClick=()=>{
+    formData.value.validate = true
+    form.value?.requestSubmit()
+}
 </script>
 <template>
-    <form :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
+    <form ref="form" :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
         @submit.prevent="handelSubmit()">
         <Input required type="password" :data="formData" name="password" label="New password" class=" w-full mb-10" />
         <Input required type="password" :data="formData" name="confPassword" label="Confirm Password"
             class=" w-full mb-10" />
 
-        <buttonLoads label="Reset password" @click="formData.validate = true" class=" w-full mb-10" :isLoad="loading" />
+        <buttonLoads type="button" label="Reset password" @click="handelbtnClick()" class=" w-full mb-10" :isLoad="loading" />
 
 
         <span class=" font-[400] w-full text-center leading-4">

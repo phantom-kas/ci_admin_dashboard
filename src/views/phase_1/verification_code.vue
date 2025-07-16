@@ -36,20 +36,27 @@ onMounted(() => {
 
 
 const resendCode = () => {
-    axios.get('send_verify_email',  { _load: true, _showAllMessages: true })
-        
+    axios.get('send_verify_email',  { _load: true, _showAllMessages: true })  
 }
+
+const form = ref(null as null | HTMLFormElement)
+const handelbtnClick=()=>{
+    formData.value.validate = true
+    
+    form.value?.requestSubmit()
+}
+
 </script>
 <template>
-    <form :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
+    <form ref="form" :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
         @submit.prevent="handelSubmit()">
         <!-- <Input required type="email" :data="formData" name="email" label="Email" class=" w-full mb-6" /> -->
         <Input required :data="formData" type="text" name="token" label="Code" class=" w-full mb-6" />
 
-        <buttonLoads label="Verify" @click=" formData.validate = true" class=" w-full mb-6" :isLoad="loading" />
+        <buttonLoads label="Verify" @click=" handelbtnClick()" class=" w-full mb-6" :isLoad="loading" />
 
 
-        <span class=" font-[400] w-full text-center leading-4">
+        <span  class=" font-[400] w-full text-center leading-4">
             Didn't you receive the OPT? <span @click="resendCode()" :to="{ name: 'signup' }"
                 class=' text-blue font-[400] cursor-pointer'> Resesnd OTP</span>
         </span>

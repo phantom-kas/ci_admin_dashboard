@@ -13,7 +13,7 @@ const elements = ref({
             src="../../assets/images/p1.png" />
 
         <div class=" bg-white top-0 left-0 fixed z-20 min-w-[100vw] min-h-[100vh] opacity-[0.3] shadow-2xl"></div>
-        <Transition :key="elements.title" appear>
+        <Transition :key="elements.title" appear  mode="out-in">
             <div
                 class=" shadow-2xl z-30 py-[40px] px-[25px] bg-white flex flex-col gap-y-3 items-center justify-center rounded-xl lg:w-min495 w-full">
                 <IconCi />
