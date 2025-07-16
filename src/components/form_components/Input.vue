@@ -65,10 +65,10 @@ const handelToggleSeen = () => {
 
 const isInvalid = ref(false)
 const msg = ref(null as string | null)
-const checkValid = (e) => {
-    if(!e || e==''){
-        return
-    }
+const checkValid = (e: string) => {
+    // if(!e || e==''){
+    //     return
+    // }
     if(!props.data?.validate){
         return
     }
@@ -91,11 +91,11 @@ onMounted(()=>{
 <template>
     <label class=" text-black flex flex-col items-start justify-start relative">
         <span :class="{ 'text-red-500': isInvalid }" class=""> {{ label }}</span>
-        <span  class=" text-xs leading-3 text-red-500 text-right w-full" v-html="msg"></span>
+        <span  class="  text-xs leading-3 text-red-500 text-right w-full mb-1" v-html="msg"></span>
         <div :class="{'border-3 rounded-lg border-red-600 ring-red-500':isInvalid}" class="w-full h-10 inputel rounded-lg flex flex-row items-center justify-start relative">
             <input :value="vData[name] ?? ''"
-                @input="e => { checkValid(e); vData[name] = (e.target as HTMLInputElement)?.value, $emit('input', { name: name, value: (e.target as HTMLInputElement)?.value }) }"
-                :required :name :type :placeholder ref="input" class=" grow h-full px-2" />
+                @input="e => { checkValid((e.target as HTMLInputElement)?.value); vData[name] = (e.target as HTMLInputElement)?.value, $emit('input', { name: name, value: (e.target as HTMLInputElement)?.value }) }"
+                :required :name :type :placeholder ref="input" class=" grow h-full px-2 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
             <div v-if="type == 'password'" @click="handelToggleSeen()"
                 class=" right-2 absolute cursor-pointer z-50 bg-white flex items-center justify-center">
                 <IconEyeSlash color="#7F7E83" v-if="passProps" />

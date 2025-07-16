@@ -1,8 +1,8 @@
 <template>
-    <span class="loader"></span>
+    <span class="loader3"></span>
 </template>
-<style>
-.loader {
+<style scoped>
+.loader3 {
     width: 48px;
     height: 48px;
     display: inline-block;

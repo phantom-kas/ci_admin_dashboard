@@ -7,10 +7,10 @@ defineProps({
 })
 </script>
 <template>
-    <span class="loader" :style="{'--size':size}" ></span>
+    <span class="loader1" :style="{'--size':size}" ></span>
 </template>
 <style scoped>
-.loader {
+.loader1 {
     width: calc(16px * var(--size));
     height: calc(16px * var(--size));
     border-radius: 50%;
