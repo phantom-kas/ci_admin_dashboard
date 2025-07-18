@@ -6,6 +6,7 @@ import { useLoaderStore } from "../stores/loader";
 
 
 axios.defaults.baseURL = "https://ci-rest-api.onrender.com/api/";
+
 //axios.defaults.baseURL = "http://localhost:5000/api/";
 const axiosApiInstance = axios.create();
 
