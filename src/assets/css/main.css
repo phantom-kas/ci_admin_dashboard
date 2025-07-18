@@ -8,7 +8,7 @@
     --color-blue1: #175CD3;
     --color-blue-light: #E9F3FB;
     --color-blue-deep: #026AA2;
-    --color-blue-lightest: #E6EFF5;
+    --color-BlueLightest: #E6EFF5;
 
     --color-orange: #FFF4ED;
     --color-orange-deep: #B93815;
@@ -37,6 +37,7 @@
 
 
     --container-min495: min(495px, 100%);
+    --container-sidebar300: min(300px, calc(100% - 2rem));
 }
 
 

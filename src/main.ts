@@ -10,7 +10,7 @@ import {
     faCircleXmark as farCircleXmark
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faCircleXmark , faTriangleExclamation,faCircleInfo,faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark ,faBars, faTriangleExclamation,faCircleInfo,faXmark} from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
@@ -19,6 +19,7 @@ import "./interceptors/axios";
 
 library.add(
     farTrashCan,
+    faBars,
     faXmarkCircle,
     faCircleXmark,
     faCircleCheck,
