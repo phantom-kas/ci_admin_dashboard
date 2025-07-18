@@ -4,7 +4,7 @@ import sidebar from '@/components/sidebar/sidebar.vue';
 
 <template>
   <main
-    class=" h-screen dark  sm:flex flex-row items-start justify-between overflow-hidden  dark:bg-black bg-white dark:text-neutral-300 text-black">
+    class=" h-screen   sm:flex flex-row items-start justify-between overflow-hidden  dark:bg-black bg-white dark:text-neutral-300 text-black">
     <sidebar class=" sm:relative fixed sm:top-0 sm:left-0" />
     <div
       class="z-10 w-full flex flex-col justify-start items-center px-4 leading-4 text-[16px]  h-screen  ofov relative">
