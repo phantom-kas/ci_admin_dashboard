@@ -8,7 +8,7 @@ const emit = defineEmits(['toggleOpen'])
 <template>
     <div class=" flex items-center justify-start sm:justify-center ">
         <div @click="emit('toggleOpen')"
-            class="  size-10  flex flex-row items-center justify-center rounded-[50%] active:bg-neutral-400 active:text-white sm:hidden text-blue">
+            class="  size-10  flex flex-row items-center justify-center rounded-[50%] active:bg-neutral-400 active:text-white1 sm:hidden text-blue">
             <font-awesome-icon size="xl" :icon="['fas', 'bars']" />
         </div>
         <IconCi :size="30" />

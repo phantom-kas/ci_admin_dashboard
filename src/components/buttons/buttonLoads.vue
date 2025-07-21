@@ -11,7 +11,7 @@ defineProps({
         default: false
     },
     classes: {
-        default: 'bg-blue text-white ',
+        default: 'bg-blue text-white1 ',
         type: String
     },
     disabeldClass: {

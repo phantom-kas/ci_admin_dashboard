@@ -8,19 +8,28 @@ import IconGraduate from '../icons/IconGraduate.vue';
 import avatar1 from '../avatars/avatar1.vue';
 import IconLogOut from '../icons/IconLogOut.vue';
 import IconGears from '../icons/IconGears.vue';
+import themeSelect from '../menus/themeSelect.vue';
+import dropdown from '@/components/menus/dropdown.vue';
 import { ref } from 'vue';
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useThemeStore } from '@/stores/theme';
+import overlayfixed from '../overlayfixed.vue';
+const theme = useThemeStore()
+const darkModelOpen = ref(false)
 const isOpen = ref(true)
 const handelToggle = () => {
     isOpen.value = !isOpen.value
 }
 </script>
 <template>
-    <div :class="[{ 'open': isOpen }, { ' closed': !isOpen }, { 'bg-blue': isOpen }]"
-        class=" flex flex-col h-screen w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-50 ofov">
-        <sidebarHeader :class="[{ 'sm:py-9 mb-4 ': isOpen },{' dark:bg-black':!isOpen}]" @toggleOpen="handelToggle()"
-            class="bg-white  rounded-lg sm:px-5  sm:mb-12 " />
-        <div v-show="isOpen" class="w-full flex h-full flex-col duration-150 transition-transform">
+    <div :class="[{ 'open': isOpen }, { ' closed': !isOpen }, { 'bg-blue  dark:bg-black dark:border-gray-600 dark:border-r': isOpen }]"
+        class=" flex flex-col h-screen w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov">
+        <sidebarHeader :class="[{ 'sm:py-9 mb-4 dark:bg-neutral-800': isOpen }, { 'dark:bg-black': !isOpen }]"
+            @toggleOpen="handelToggle()" class="bg-white   rounded-lg sm:px-5  sm:mb-6 " />
+            <Teleport to="#modal" defer>
+                <overlayfixed :class="[{' hidden':!isOpen},{'block':isOpen}]" @click="handelToggle()" class="z-20 sm:hidden "/>
+            </Teleport>
+        <div v-show="isOpen" class="w-full flex h-full flex-col duration-150 transition-transform z-70">
             <sideBarLink text="Dashboard" />
             <sideBarLink text="Invoice">
                 <template #icon="{ iconClass }">
@@ -49,8 +58,22 @@ const handelToggle = () => {
                     <IconGears :class="iconClass" class="" />
                 </template>
             </sideBarLink>
+            <themeSelect v-model="darkModelOpen" @click="darkModelOpen = !darkModelOpen">
+               <template #menubutton>
+                 <sideBarLink text="Theme" :isLink="false">
+                    <template #icon="{ iconClass }">
+                        <!-- <IconGears :class="iconClass" class="" /> -->
+
+                         <FontAwesomeIcon v-if="theme.value == 'light'" size="xl" :icon="['far','sun']"/>
+                         <FontAwesomeIcon v-else-if="theme.value == 'dark'" size="xl" :icon="['fas', 'moon']"/>
+                         <FontAwesomeIcon v-else="theme.value == 'dark'" size="xl" :icon="['fas', 'desktop-alt']"/>
+                    </template>
+                </sideBarLink>
+               </template>
+            </themeSelect>
+            <!-- <dropdown /> -->
             <div class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
-                <avatar1 class=" text-white text-[15px]" />
+                <avatar1 class=" text-white1 text-[15px]" />
                 <IconLogOut />
             </div>
         </div>

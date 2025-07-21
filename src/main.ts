@@ -7,10 +7,12 @@ import {
     faTrashCan as farTrashCan,
     faXmarkCircle,
     faCircleCheck,
-    faCircleXmark as farCircleXmark
+    faCircleXmark as farCircleXmark,
+    faSun as farSun,
+    faCalendar
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faCircleXmark ,faBars, faTriangleExclamation,faCircleInfo,faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark ,faBars, faTriangleExclamation,faCircleInfo,faXmark,faMoon,faDesktopAlt,faDesktop,faSun} from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
@@ -19,9 +21,15 @@ import "./interceptors/axios";
 
 library.add(
     farTrashCan,
+    faCalendar,
+    faDesktop,
+    faDesktopAlt,
     faBars,
+    faMoon,
     faXmarkCircle,
+    faSun,
     faCircleXmark,
+    farSun,
     faCircleCheck,
     faTriangleExclamation,
     farCircleXmark,

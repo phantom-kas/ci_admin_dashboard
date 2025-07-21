@@ -1,5 +1,10 @@
 @import './base.css';
 @import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+/* @import "tailwindcss/components.css" layer(components); */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -32,14 +37,36 @@
 
 
     --color-yello: #D89614;
+    --color-white1: #f1f1f1;
 
-
+    --color-white2: #E5E5EF;
 
 
     --container-min495: min(495px, 100%);
+    --container-max300: min(300, 100%);
     --container-sidebar300: min(300px, calc(100% - 2rem));
 }
 
+
+
+
+.theme1cont,
+.theme2cont {
+    @apply bg-white text-black
+}
+
+.dark .theme2cont {
+    @apply text-white1 bg-black
+}
+
+.dark .theme1cont {
+    @apply border-gray-600 dark:border text-white1 bg-black
+}
+
+
+.title1 {
+    @apply text-[20px] font-[600]
+}
 
 /* form.validate :invalid{
     @apply 
