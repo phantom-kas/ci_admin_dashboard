@@ -2,10 +2,11 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useThemeStore } from '@/stores/theme'
+import type { OnClickOutsideHandler } from '@vueuse/core'
 
 const open = ref(false)
 const theme = useThemeStore()
-const menuRef = ref(null)
+const menuRef = ref(null as HTMLElement | null)
 const positionClass = ref('top-full mt-2 right-0')
 
 const dropdownSize = { width: 160, height: 120 }
@@ -25,14 +26,14 @@ const currentLabel = computed(() => {
 //     style: {}
 // })
 
-const applyTheme = (mode) => {
+const applyTheme = (mode: string) => {
     const root = document.documentElement
     if (mode === 'dark') root.classList.add('dark')
     else if (mode === 'light') root.classList.remove('dark')
     else root.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches)
 }
 
-const setTheme = (mode) => {
+const setTheme = (mode: string) => {
     theme.value = mode
     applyTheme(mode)
 }
@@ -40,7 +41,7 @@ const setTheme = (mode) => {
 const initTheme = () => {
     // const saved = localStorage.getItem('theme') || 'system'
     // theme.value = saved
-    applyTheme(theme)
+    applyTheme(theme.value)
 }
 
 // const startRippleTransition = (mode, event) => {
@@ -72,6 +73,7 @@ const toggleMenu = async () => {
 }
 
 const adjustDropdownDirection = () => {
+    if (!menuRef.value) return
     const rect = menuRef.value.getBoundingClientRect()
     const { innerHeight, innerWidth } = window
 
@@ -91,8 +93,11 @@ const adjustDropdownDirection = () => {
 
 }
 
-const handleClickOutside = (e) => {
-    if (!menuRef.value.contains(e.target)) open.value = false
+const handleClickOutside = (e: PointerEvent) => {
+    if (!menuRef.value) return
+    // if (e.target) return
+
+    if (!menuRef.value.contains(e.target as Node | null)) open.value = false
 }
 
 const handleSystemThemeChange = () => {
@@ -117,7 +122,7 @@ onUnmounted(() => {
 
             <slot name="menubutton">
                 <!-- Toggle Button -->
-                <button 
+                <button
                     class="px-4 py-2 bg-gray-200 dark:bg-black text-sm rounded hover:bg-gray-300 dark:hover:bg-neutral-700">
                     Theme: {{ currentLabel }} - {{ positionClass }}
                 </button>

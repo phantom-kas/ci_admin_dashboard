@@ -74,31 +74,31 @@ onMounted(() => {
       {
         label: 'Section A',
         data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-        stack: 'stack1',
-        borderRadius: 30,
-      },
-      {
-        label: 'Section B',
-        data: [40, 30, 20],
-        backgroundColor: 'rgba(54, 162, 235, 0.8)',
-        stack: 'stack1',
-        borderRadius: 30,
-      },
-      {
-        label: 'Section C',
-        data: [30, 50, 70],
         backgroundColor: 'rgba(75, 192, 192, 0.8)',
         stack: 'stack1',
         borderRadius: 30,
       },
-      {
-        label: 'Section D',
-        data: [20, 50, 70],
-        backgroundColor: 'red',
-        stack: 'stack1',
-        borderRadius: 30,
-      },
+      // {
+      //   label: 'Section B',
+      //   data: [40, 30, 20],
+      //   backgroundColor: 'rgba(54, 162, 235, 0.8)',
+      //   stack: 'stack1',
+      //   borderRadius: 30,
+      // },
+      // {
+      //   label: 'Section C',
+      //   data: [30, 50, 70],
+      //   backgroundColor: 'rgba(75, 192, 192, 0.8)',
+      //   stack: 'stack1',
+      //   borderRadius: 30,
+      // },
+      // {
+      //   label: 'Section D',
+      //   data: [20, 50, 70],
+      //   backgroundColor: 'red',
+      //   stack: 'stack1',
+      //   borderRadius: 30,
+      // },
 
     ]
   };

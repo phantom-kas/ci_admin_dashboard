@@ -14,7 +14,3 @@ const emit = defineEmits(['toggleOpen'])
         <IconCi :size="30" />
     </div>
 </template>
-
-
-
-<style scoped></style>

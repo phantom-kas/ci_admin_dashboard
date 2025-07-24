@@ -3,11 +3,16 @@ import { useAuthStore } from "../stores/auth";
 import router from "../router/index";
 import { useToastStore } from "@/stores/toast";
 import { useLoaderStore } from "../stores/loader";
+import { isDev } from "@/composabels/utilities";
 
 
-//axios.defaults.baseURL = "https://ci-rest-api.onrender.com/api/";
+//;
 
-axios.defaults.baseURL = "http://localhost:5000/api/";
+if (isDev()) {
+  axios.defaults.baseURL = "http://localhost:5000/api/";
+} else {
+  axios.defaults.baseURL = "https://ci-rest-api.onrender.com/api/"
+}
 const axiosApiInstance = axios.create();
 
 

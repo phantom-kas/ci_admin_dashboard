@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type PropType } from 'vue';
+import { onBeforeMount, onMounted, ref, type Prop, type PropType } from 'vue';
 import IconEye from '../icons/IconEye.vue';
 import IconEyeSlash from '../icons/IconEyeSlash.vue';
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 const input = ref<HTMLInputElement | null>(null)
 
 const props = defineProps({
@@ -31,6 +31,10 @@ const props = defineProps({
         type: String,
         required: true
     },
+    options:{
+        type:Object as PropType<{value:string,label:string}[]>,
+        default:[{label:'Option 1',value:'1'},{label:'Option 1',value:'Option 1'},{label:'Option 1',value:'Option 1'},{label:'Option 1',value:'Option 1'}]
+    }
 })
 
 const vData = ref(props.data ?? {})
@@ -89,20 +93,28 @@ onMounted(()=>{
 </script>
 
 <template>
-    <label class="  flex flex-col items-start justify-start relative ">
-        <span :class="{ 'text-red-500': isInvalid }" class=""> {{ label }}</span>
-        <span  class="  text-xs leading-3 text-red-500 text-right w-full mb-1" v-html="msg"></span>
-        <div :class="{'border-3 rounded-lg border-red-600 ring-red-500':isInvalid}" class="w-full h-10 inputel rounded-lg flex flex-row items-center justify-start relative">
-            <input :value="vData[name] ?? ''"
-                @input="e => { checkValid((e.target as HTMLInputElement)?.value); vData[name] = (e.target as HTMLInputElement)?.value, $emit('input', { name: name, value: (e.target as HTMLInputElement)?.value }) }"
-                :required :name :type :placeholder ref="input" class="theme1cont grow h-full px-2 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
-            <div v-if="type == 'password'" @click="handelToggleSeen()"
-                class=" right-2 absolute cursor-pointer z-50  flex items-center justify-center theme2cont">
-                <IconEyeSlash color="#7F7E83" v-if="passProps" />
-                <IconEye color="#7F7E83" v-else />
-            </div>
-        </div>
-    </label>
+<label class="flex flex-col items-start justify-start relative">
+  <span :class="{ 'text-red-500': isInvalid }">{{ label }}</span>
+  <span class="text-xs leading-3 text-red-500 text-right w-full mb-1" v-html="msg"></span>
+  
+  <div :class="{'border-3 rounded-lg border-red-600 ring-red-500': isInvalid}" class="w-full h-10 inputel rounded-lg flex items-center justify-start relative">
+    <select
+      :value="vData[name] ?? ''"
+      @change="e => { checkValid((e.target as HTMLInputElement).value); vData[name] = (e.target as HTMLInputElement).value; $emit('input', { name: name, value: (e.target as HTMLInputElement).value }) }"
+      :required
+      :name="name"
+      ref="input"
+      class="theme1cont grow h-full px-2 rounded-lg bg-white text-gray-700 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+      
+      <option disabled value="">-- {{ placeholder || 'Select an option' }} --</option>
+      <option v-for="(option, i) in options" :key="i" :value="option.value">{{ option.label }}</option>
+    </select>
+
+    <div class="pointer-events-none absolute right-2 text-gray-400">
+        <FontAwesomeIcon :icon="['fas','chevron-down']" />
+    </div>
+  </div>
+</label>
 </template>
 <style scoped>
 .inputel {

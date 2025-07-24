@@ -45,11 +45,11 @@ const invoices = ref([{
 </script>
 <template>
     <div class=" flex flex-col gap-y-6">
-        <div class="w-full flex flex-row justify-between text-[#7F7E83] py-5">
+        <div class="w-full flex flex-row justify-between text-[#7F7E83] py-5 ">
             <span>NAME</span>
             <span>AMOUNT</span>
         </div>
-        <div v-for="invoice, i in invoices" :key="i" class="flex flex-rol justify-between gap-x-4">
+        <div v-for="invoice, i in invoices" :key="i" class="flex flex-rol justify-between gap-x-4 ">
             <avatar1 :url="invoice.url">
                 <template #name>
                     <span class=" h-full flex flex-row items-center justify-center">{{invoice.firstName+' '+invoice.lastName}}</span>

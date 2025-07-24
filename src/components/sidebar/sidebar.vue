@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import sidebarHeader from './sidebarHeader.vue';
-import IconDashboard from '../icons/IconDashboard.vue';
-import sideBarLink from './sidebar-link.vue'
+import Header from './header.vue';
+import sideBarLink from './link.vue';
 import IconFile from '../icons/IconFile.vue';
 import IconPeople from '../icons/IconPeople.vue';
 import IconGraduate from '../icons/IconGraduate.vue';
 import avatar1 from '../avatars/avatar1.vue';
 import IconLogOut from '../icons/IconLogOut.vue';
-import IconGears from '../icons/IconGears.vue';
+// import IconGears from '../icons/IconGears.vue';
 import themeSelect from '../menus/themeSelect.vue';
-import dropdown from '@/components/menus/dropdown.vue';
 import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useThemeStore } from '@/stores/theme';
@@ -24,13 +22,13 @@ const handelToggle = () => {
 <template>
     <div :class="[{ 'open': isOpen }, { ' closed': !isOpen }, { 'bg-blue  dark:bg-black dark:border-gray-600 dark:border-r': isOpen }]"
         class=" flex flex-col h-screen w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov">
-        <sidebarHeader :class="[{ 'sm:py-9 mb-4 dark:bg-neutral-800': isOpen }, { 'dark:bg-black': !isOpen }]"
+        <Header :class="[{ 'sm:py-9 mb-4 dark:bg-neutral-800': isOpen }, { 'dark:bg-black': !isOpen }]"
             @toggleOpen="handelToggle()" class="bg-white   rounded-lg sm:px-5  sm:mb-6 " />
             <Teleport to="#modal" defer>
                 <overlayfixed :class="[{' hidden':!isOpen},{'block':isOpen}]" @click="handelToggle()" class="z-20 sm:hidden "/>
             </Teleport>
         <div v-show="isOpen" class="w-full flex h-full flex-col duration-150 transition-transform z-70">
-            <sideBarLink text="Dashboard" />
+            <sideBarLink :to="{name:'dashboard'}" text="Dashboard" />
             <sideBarLink text="Invoice">
                 <template #icon="{ iconClass }">
                     <IconFile :class="iconClass" class="" />
@@ -41,23 +39,23 @@ const handelToggle = () => {
                     <IconPeople :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink text="Tracks">
+            <sideBarLink :to="{name:'tracks'}" text="Tracks">
                 <template #icon="{ iconClass }">
                     <IconGraduate :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink text="Courses">
+            <sideBarLink text="Courses" :to="{name:'courses'}">
                 <template #icon="{ iconClass }">
                     <IconGraduate :class="iconClass" class="" />
                 </template>
             </sideBarLink>
 
             <sideBarLink text="Report" />
-            <sideBarLink text="Settings">
+            <!-- <sideBarLink text="Settings">
                 <template #icon="{ iconClass }">
                     <IconGears :class="iconClass" class="" />
                 </template>
-            </sideBarLink>
+            </sideBarLink> -->
             <themeSelect v-model="darkModelOpen" @click="darkModelOpen = !darkModelOpen">
                <template #menubutton>
                  <sideBarLink text="Theme" :isLink="false">

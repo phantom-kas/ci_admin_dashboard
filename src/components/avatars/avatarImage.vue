@@ -1,4 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps({
+  url: {
+    type: String,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
     <img

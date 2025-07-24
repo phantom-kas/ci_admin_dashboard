@@ -34,7 +34,7 @@ import chat from '@/components/dashboard/chart.vue';
             <h3 class="title1 ">
                 Tracks
             </h3>
-            <alltracks />
+            <alltracks :showPaginationControls="false" />
         </div>
 
         <div class="flex gap-x-20 justify-between w-full mt-7 flex-wrap gap-y-6">

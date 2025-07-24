@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import IconDashboard from '../icons/IconDashboard.vue';
-import { RouterLink } from 'vue-router';
 defineProps({
     text: {
         type: String,
@@ -8,7 +7,7 @@ defineProps({
     },
     iconClass: {
         type: String,
-        default: 'fill-white group-hover:fill-blue group-hover:text-blue group-hover:dark:fill-BlueLightest group-hover:dark:text-BlueLightest'
+        default: 'group-hover:text-blue  group-hover:dark:text-BlueLightest'
     },
     isLink: {
         type: Boolean,
@@ -37,3 +36,13 @@ defineProps({
     </component>
     <!-- </router-link> -->
 </template>
+
+<style scoped>
+@reference "../../assets/css/main.css";
+.dark .router-link-active {
+    @apply bg-neutral-900 text-blue-light
+}
+.router-link-active {
+    @apply bg-white text-blue
+}
+</style>
