@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-defineProps({
-  url: {
-    type: String,
-    required: true,
-  },
-})
-</script>
 
 <template>
   <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -35,13 +27,13 @@ defineProps({
   </div>
 </template>
 
-<script setup>
+<script setup lag='ts'>
 import { ref, watch } from 'vue'
 
 const props = defineProps({
   url: {
     type: String,
-    required: true,
+    //required: true,
   },
 })
 

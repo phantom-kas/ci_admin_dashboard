@@ -38,9 +38,6 @@ const emit = defineEmits(['fullList'])
 const lastId = ref<string | undefined>(undefined)
 const loaded = ref(false)
 const fetchContent = async () => {
-    // if (data.value.currentPage != 1 && !lastId.value) {
-    //     return
-    // }
     return await axios.get(props.url as string, { params: { ...props.params, limit: props.itemsPerPage, lastId: lastId.value } }).then(res => {
         if (res.data.status != 'success') return
 
@@ -53,7 +50,6 @@ const fetchContent = async () => {
             data.value.showNext = true
         }
         lastId.value = res.data.data[props.itemsPerPage - 2][props.idParam]
-
     })
 }
 const data = ref({ currentPage: 1, showNext: true  })
