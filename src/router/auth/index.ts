@@ -9,11 +9,23 @@ export default [
         name: 'tracks',
         path: '/tracks',
         // alias: '/',
-        component: () => import('../../views/auth/tracks/track.vue'),
+        component: () => import('../../views/auth/tracks/tracks.vue'),
         children: [
             {
                 name: 'add-track',
                 path: 'add-track',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/createTrack.vue'),
+            },
+            {
+                name: 'edit-track-image',
+                path: 'edit-track-image/:id',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/createTrack.vue'),
+            },
+            {
+                name: 'edit-track',
+                path: 'edit-track/:id',
                 // alias: '/',
                 component: () => import('../../views/auth/tracks/createTrack.vue'),
             },
@@ -37,6 +49,38 @@ export default [
                 // alias: '/',
                 component: () => import('../../views/auth/courses/createCourse.vue'),
             },
-        ]
-    }
+            {
+                name: 'edit-course',
+                path: 'edit-course/:id',
+                // alias: '/',
+                component: () => import('../../views/auth/courses/createCourse.vue'),
+                props: (route: { params: { id: string } }) => ({
+                    mode: 'edit',
+                    id: route.params.id
+                })
+            },
+
+            {
+                name: 'edit-image',
+                path: 'edit-image/:id',
+                // alias: '/',
+                component: () => import('../../views/auth/courses/createCourse.vue'),
+                props: (route: { params: { id: string } }) => ({
+                    mode: 'edit',
+                    id: route.params.id
+                })
+            },
+        ],
+
+    },
+    {
+        name: 'track',
+        path: 'track/:id',
+        // alias: '/',
+        component: () => import('../../views/auth/tracks/track.vue'),
+        props: (route: { params: { id: string } }) => ({
+            // mode: 'edit',
+            id: route.params.id
+        })
+    },
 ]

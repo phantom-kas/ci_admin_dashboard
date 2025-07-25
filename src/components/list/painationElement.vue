@@ -3,7 +3,7 @@ import type { PropType } from 'vue';
 
 const props = defineProps({
     data: {
-        type: Object as PropType<{ currentPage: number, showNext: true }>
+        type: Object as PropType<{ currentPage: number, showNext: boolean }>
     },
     // totalPages: {
     //     type: Number,

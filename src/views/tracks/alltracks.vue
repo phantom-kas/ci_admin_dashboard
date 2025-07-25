@@ -7,15 +7,30 @@ import { onMounted } from 'vue';
 
 
 defineProps({
+    showInstructor: {
+        type: Boolean,
+        default: true
+    },
+    showDropDown: {
+        type: Boolean,
+        default: true
+    },
     showPaginationControls: {
         type: Boolean,
         default: true
+    }, itemsPerPage: {
+        type: Number,
+        default: 10
     }
 })
-const emit = defineEmits(['fullList'])
+const emit = defineEmits(['fullList', 'edit', 'delete', 'editImage'])
 onMounted(() => {
     // emit('fullList', tracks)
 })
+
+const cc = ()=>{
+    window.alert('1')
+}
 </script>
 <template>
     <!-- <div class=" w-full  gap-x-7 tracks gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center">
@@ -25,12 +40,15 @@ onMounted(() => {
         <trackComponent class=" " /> -->
     <div class="w-full flex flex-col gap-y-6 items-start justify-start">
         <!-- {{ tracks }} -->
-        <paginationList @fullList="e =>  emit('fullList', e)" :showPaginationControls component="div"
-            class="w-full  gap-x-7 tracks  gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center items-stretch" url="/tracks">
+        <paginationList :itemsPerPage @fullList="e => emit('fullList', e)" :showPaginationControls component="div"
+            class="w-full  gap-x-7 tracks  gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center items-stretch"
+            url="/tracks">
             <template #items="{ item, i }">
-                <trackComponent
-                    :track="{ title: item.name, url: getImageUrl(item.image), duration: item.duration, courses: ['eng'] }"
+                <trackComponent  :showDropDown :showInstructor @editImage="(track: any) => {emit('editImage', { ...track,i })}"
+                    @edit="track => emit('delete', { ...track,i })" @delete="track => emit('edit', { ...track,i })"
+                    :track="{Instructor:item.Instructor, id: item.id, price: item.price, title: item.name, url: getImageUrl(item.image), duration: item.duration, courses: item.courses, num_courses: item.num_courses }"
                     class=" " />
+                    <!-- {{ item.price }} -->
                 <!-- {{ i }}
                     {{ item }} -->
             </template>
@@ -45,5 +63,5 @@ onMounted(() => {
 .tracks {
     width: 300px;
 
-} 
+}
 </style>

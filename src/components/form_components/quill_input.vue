@@ -23,6 +23,7 @@ const props = defineProps({
 const quillEl = ref(null)
 let quill: Quill
 onMounted(() => {
+  
   if (!quillEl.value) {
     return
   }
@@ -76,6 +77,7 @@ const emit = defineEmits(['inputed'])
 </script>
 <template>
   <div class=" w-full mt-4 ">
+    
     <div class=" w-full">
       <div ref="quillEl" class="quill  quillccc w-full p-1 ">
 

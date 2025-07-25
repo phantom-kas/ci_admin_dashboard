@@ -63,16 +63,17 @@
 .theme1cont,
 .theme2cont,
 .quill,
+.ql-picker-options,
 .ql-toolbar.ql-snow {
     @apply bg-white text-black
     /* @theme --color-yello: black; */
 }
 
-.dark .theme2cont, .dark .quill {
+.dark .theme2cont, .dark .quill,.dark .ql-picker-options {
     @apply text-white1 bg-black
 }
 
-.dark .theme1cont, .dark .quill, .dark .ql-toolbar.ql-snow {
+.dark .theme1cont, .dark .quill, .dark .ql-toolbar.ql-snow ,.dark .ql-picker-options{
     @apply border-gray-600 dark:border text-white1 bg-black
 }
 

@@ -56,7 +56,7 @@ const fetchContent = async () => {
 
     })
 }
-const data = ref({ currentPage: 1, showNext: true })
+const data = ref({ currentPage: 1, showNext: true  })
 const paginatedItems = computed(() => {
     // const start = (data.value.currentPage - 1) * props.itemsPerPage
     return listItems.value.slice(0, props.itemsPerPage)
@@ -76,6 +76,7 @@ onMounted(async () => {
 
         </slot>
         <!-- <tbody> -->
+            <!-- {{ lastId}} -->
         <transition-group name="list">
 
             <template v-for="item, i in paginatedItems" :key="item[idParam]">

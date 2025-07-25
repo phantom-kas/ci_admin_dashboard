@@ -1,5 +1,6 @@
+<script setup></script>
 <template>
-  <span class="loader2"></span>
+  <span class="loader2" ></span>
 </template>
 <style scoped>
 .loader2 {
@@ -17,6 +18,7 @@
   background-position: 0px center, 15px center, 30px center, 45px center, 60px center, 75px center, 90px center;
   animation: rikSpikeRoll 0.65s linear infinite alternate;
 }
+
 
 @keyframes rikSpikeRoll {
   0% {

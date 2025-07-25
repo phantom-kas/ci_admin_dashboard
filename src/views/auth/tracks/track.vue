@@ -1,44 +1,58 @@
-<script setup lang="ts">
-import alltracks from '@/views/tracks/alltracks.vue';
-import buttonLoads from '@/components/buttons/buttonLoads.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import search_input from '@/components/form_components/search_input.vue';
-import { useRoute, useRouter } from 'vue-router';
-import createTrack from './createTrack.vue';
-import screen2 from '@/components/container/screen2.vue';
-import { ref } from 'vue';
+<script setup lang='ts'>
+import dropdown from '@/components/menus/dropdown.vue';
+import { anyCurrency } from '@/composabels/utilities';
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
-const route = useRoute()
-const router = useRouter()
+defineProps({
+    id: {
+        type: String
+    },
 
-const tracks = ref([] as any[])
+})
+
+const track = ref({})
+const hasLoaded = ref(false)
+onMounted(() => {
+    axios.get('').then()
+})
 </script>
 <template>
-    <div class="flex flex-col justify-start items-center gap-y-6 w-full pt-10 ">
+    <div class=" w-[min(100%,742px)] flex flex-col mx-auto py-11">
+        <img src="../../../assets/images/t1.png" class=" w-full rounded-t-2xl" alt="">
+        <div class=" w-full flex flex-col p-6 gap-y-5 py-11 ">
+            <div class=" flex justify-between w-full items-end">
+                <h1 class=" text-[40px] font-[600] text-4xl">Software Development</h1>
+                <dropdown />
+            </div>
+            <div class=" flex justify-start flex-wrap w-full items-center">
+                <div class=" flex gap-x-4 text-sm">
+                    icons
+                </div>
+                <span class=" ml-auto text-2xl font-[400]"> {{ anyCurrency(1000000) }}</span>
+            </div>
+            <div class=" flex justify-start flex-wrap w-full items-center ">
+                <div class=" flex gap-x-4 text-[12px] ">
+                    <span> courses</span>
+                </div>
+                <div class=" ml-auto">
+                    Ratings
+                </div>
+            </div>
+            <div class=" w-full text-sm">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.
+            </div>
 
-        <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input />
-            <router-link :to="{ name: 'add-track' }">
-                <buttonLoads type="button" class="sm:w-[200px]">
-                    <template #label>
-                        <div class="flex gap-x-4">
-                            <FontAwesomeIcon :icon="['fas', 'plus']" />
-                            Add Track
-                        </div>
-                    </template>
-                </buttonLoads>
-            </router-link>
-        </form>
-        <alltracks @fullList="e => tracks = e" class=" w-full" />
-
-        <!-- <buttonLoads type="button" class="sm:w-[200px]" @click="tracks.push({...tracks[0]})">Add</buttonLoads> -->
-
+        </div>
     </div>
-    <!-- dasda -->
-    <screen2 @close="router.go(-1)" v-if="route.name == 'add-track'" to="#modal2" defer>
-        <createTrack @success="e=>{router.go(-1);tracks.unshift(e)}" />
-    </screen2>
 </template>
-
-
-<style scoped></style>
+<style scoped>
+/* .trackwdith{
+        width: min(742px);
+    } */
+</style>
