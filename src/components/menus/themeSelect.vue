@@ -93,7 +93,7 @@ const adjustDropdownDirection = () => {
 
 }
 
-const handleClickOutside = (e: PointerEvent) => {
+const handleClickOutside = (e: any) => {
     if (!menuRef.value) return
     // if (e.target) return
 

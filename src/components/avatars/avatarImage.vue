@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script setup lag='ts'>
+<script setup lang='ts'>
 import { ref, watch } from 'vue'
 
 const props = defineProps({

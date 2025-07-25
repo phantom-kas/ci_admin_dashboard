@@ -125,53 +125,8 @@ onMounted(() => {
     },
   };
   hasLoaded.value = true
-  chart.value = new Chart(chartElement.value as HTMLCanvasElement, config)
+  chart.value = new Chart(chartElement.value as HTMLCanvasElement, config as any)
   return
-  let query = route.query
-
-  axios.get('users/get_daily_registrations?model_id=2', { params: { ...query } })
-    .then((res) => {
-
-
-      Chartdata.value = [{ label: 'Nuber of clients', tension: 0.4, data: [] }, { label: 'Nuber of sales people', tension: 0.4, data: [] }]
-
-      for (let index = 0; index < res.data.data.length; index++) {
-        Chartdata.value[0]['data'].push({ y: res.data.data[index]['num_clients'], x: res.data.data[index]['date'] });
-        Chartdata.value[1]['data'].push({ y: res.data.data[index]['num_sales_people'], x: res.data.data[index]['date'] });
-      }
-
-
-      hasLoaded.value = true
-      return
-
-    })
-    .then(res => {
-      console.log(Chartdata.value)
-
-      config.type = 'line'
-      config.data = { datasets: Chartdata.value }
-      config.options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        // elements:{line:{tension:2}},
-        //bezierCurve:true,
-        scales: {
-          x: {
-            type: 'time',
-            time: {
-              unit: 'day'
-            }
-          },
-          y: {
-            beginAtZero: true
-          }
-        }
-
-      }
-      console.log('config')
-
-      chart.value = new Chart(chartElement.value as HTMLCanvasElement, config)
-    })
 
 })
 
