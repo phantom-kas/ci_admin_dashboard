@@ -34,7 +34,12 @@ const handelToggle = () => {
                     <IconFile :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink text="Learners">
+            <sideBarLink :to="{name:'users',params:{type:'learners'}}" text="Learners">
+                <template #icon="{ iconClass }">
+                    <IconPeople :class="iconClass" class="" />
+                </template>
+            </sideBarLink>
+             <sideBarLink :to="{name:'users',params:{type:'admins'}}" text="Admins">
                 <template #icon="{ iconClass }">
                     <IconPeople :class="iconClass" class="" />
                 </template>

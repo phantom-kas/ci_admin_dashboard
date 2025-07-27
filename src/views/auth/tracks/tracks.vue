@@ -91,7 +91,7 @@ const handelEdit = (e: any) => {
         </form>
         <!-- {{tracks}} -->
         <!-- {{ track }} -->
-        <alltracks @edit="e => { track = e; router.push({ name: 'edit-track', params: { id: e.id } }) }"
+        <alltracks  @edit="e => { track = e; router.push({ name: 'edit-track', params: { id: e.id } }) }"
             @editImage="e => { track = e; router.push({ name: 'edit-track-image', params: { id: e.id } }) }"
             @delete="e => { track = e; showConfirm = true }" @fullList="e => tracks = e" class=" w-full" />
     </div>

@@ -13,7 +13,7 @@ defineProps({
 </script>
 <template>
   <transition-group name="list">
-    <svg v-if="theme.value != 'dark'" :width="4 * size" :height="size * 1" viewBox="0 0 107 30" fill="none"
+    <svg class="dark:hidden" :width="4 * size" :height="size * 1" viewBox="0 0 107 30" fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
         d="M29.3869 11.584H21.2539V28.5393C21.6674 28.622 24.0913 28.1372 25.2515 27.8845C28.6425 26.5887 29.4214 22.8186 29.3869 21.0955V18.2007V11.584Z"
@@ -28,7 +28,7 @@ defineProps({
     </svg>
 
 
-    <svg v-else width="108" height="31" viewBox="0 0 108 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="hidden dark:block"  :width="4 * size" :height="size * 1" viewBox="0 0 107 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M29.8869 12.0836H21.7539V29.0389C22.1674 29.1216 24.5913 28.6368 25.7515 28.3841C29.1425 27.0883 29.9214 23.3182 29.8869 21.5951V18.7003V12.0836Z"
         fill="white" />

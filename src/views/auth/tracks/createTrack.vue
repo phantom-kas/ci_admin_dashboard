@@ -6,7 +6,7 @@ import { useRoute, useRouter } from 'vue-router';
 import buttonLoads from '@/components/buttons/buttonLoads.vue';
 import screen2 from '@/components/container/screen2.vue';
 import image_picker from '@/components/form_components/image_picker.vue';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from 'axios';
 const router = useRouter()
@@ -18,6 +18,7 @@ const formData = ref({ description: '', title: '', price: 0, duration: '', instr
 const handelImageChange = (e: any) => { image.value = e, showImagePicker.value = false; imageUrl.value = URL.createObjectURL(e.img); console.log(e.img) }
 const emit = defineEmits(['close', 'success', 'editsuccess'])
 const loading = ref(false)
+
 const handelUpload = () => {
     if (route.name != 'add-track') {
         return handelEdit();
@@ -46,21 +47,22 @@ const handelUpload = () => {
         });
 }
 
-const handelEdit =async () => {
+const handelEdit = async () => {
     loading.value = true
-    return axios.put('/track/' + route.params.id, { ...formData.value, file: undefined }, { _showAllMessages: true, _load: true })
-    .finally(()=>loading.value = false)
-    .then(res => {
-        if (res.data.status != 'success') return
-        emit('editsuccess', {
-            id: route.params.id,
-            Instructor: formData.value.instructor,
-            price: (formData.value.price * 100),
-            created_at: 'Just Now',
-            duration: formData.value.duration,
-            name: formData.value.title
+    return axios.put('/track/' + id.value, { ...formData.value, file: undefined }, { _showAllMessages: true, _load: true })
+        .finally(() => loading.value = false)
+        .then(res => {
+            if (res.data.status != 'success') return
+            emit('editsuccess', {
+                id: id.value,
+                Instructor: formData.value.instructor,
+                price: (formData.value.price * 100),
+                created_at: 'Just Now',
+                duration: formData.value.duration,
+                description: formData.value.description,
+                name: formData.value.title
+            })
         })
-    })
 }
 const testKey = () => {
     formData.value = { description: '', title: '', price: 0, duration: '', instructor: '', file: '' as any }
@@ -70,10 +72,24 @@ const testKey = () => {
 
 const hasLoaded = ref(false)
 const getTrack = () => {
-    return axios.get('/track/' + route.params.id, { _load2: true })
+    return axios.get('/track/' + id.value, { _load2: true })
 }
 
+const props = defineProps({
+    id: {
+        type: String,
+        default: null
+    }
+})
+const id = ref('' as string | null)
 onMounted(async () => {
+    if (props.id) {
+        id.value = props.id
+    } else if (route.params.id) {
+        id.value = route.params.id as string
+    }else{
+        id.value = null
+    }
     hasLoaded.value = false
     if (route.name == 'add-track') {
         hasLoaded.value = true
@@ -93,17 +109,20 @@ onMounted(async () => {
     hasLoaded.value = true
 })
 const route = useRoute()
+
+
+
 </script>
 <template>
     <formContainer v-if="hasLoaded" :key="key" @submit="handelUpload()" @close="router.go(-1)"
-        :title="route.name == 'add-track' ? 'Add New Track' : 'Edit Track'" class="z-80 relative">
+        :title="!id ? 'Add New Track' : 'Edit Track'" class="z-80 relative">
         <!-- {{ key }} -->
         <!-- <button-loads type="button" @click="testKey()"></button-loads> -->
         <Input :data="formData" class=" w-full" name="title" label="Track name" />
         <Input :data="formData" class=" w-full" type="number" name="price" label="Price" />
         <Input :data="formData" class=" w-full" name="duration" label="Duration" />
         <Input :data="formData" class=" w-full" name="instructor" label="Instructor" />
-        <div v-if="route.name == 'add-track'"
+        <div v-if="!id"
             class="flex flex-col justify-center items-center w-max100 gap-y-4 mt-4 mx-auto">
             <img v-if=image :src="imageUrl" class=" w-full" alt="">
             <!-- {{ image?.img }} -->
@@ -117,7 +136,7 @@ const route = useRoute()
         <quill_input :value="formData.description" @inputed="e => formData.description = e" placeholder="Description" />
         <!-- <Input class=" w-full" name="title"/> -->
         <buttonLoads :is-load="loading" class=" w-full mt-5 "
-            :label="route.name == 'add-track' ? 'Create track' : 'Edit Track'" />
+            :label="!id ? 'Create track' : 'Edit Track'" />
     </formContainer>
     <screen2 Align="justify-center" :key="2" @close="showImagePicker = false" v-if="showImagePicker">
         <image_picker :aspectRatio="1.422" @crop="e => handelImageChange(e)" class="z-[1000] my-auto" />

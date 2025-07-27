@@ -4,8 +4,6 @@ import Quill, { type QuillOptions } from 'quill';
 
 const descriptoin = ref('')
 
-
-
 const props = defineProps({
   title: {
     type: String,
@@ -76,9 +74,9 @@ onMounted(() => {
 const emit = defineEmits(['inputed'])
 </script>
 <template>
-  <div class=" w-full mt-4 ">
+  <div class=" w-full mt-4 theme1cont p-1 rounded-lg inputel">
     
-    <div class=" w-full">
+    <div class=" w-full ">
       <div ref="quillEl" class="quill  quillccc w-full p-1 ">
 
       </div>
@@ -86,5 +84,7 @@ const emit = defineEmits(['inputed'])
   </div>
 </template>
 <style>
-
+.inputel {
+    box-shadow: 0px 1px 5px 2px rgba(57, 57, 57, 0.15);
+}
 </style>

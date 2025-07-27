@@ -97,7 +97,8 @@ const emit = defineEmits(['fullList', 'clicked'])
                 </thead>
             </template>
             <template #items="{ item, i }">
-                <tr @click="$emit('clicked', item)" :class="{ 'bg-blue-500 text-black': item._selected, 'odd:bg-neutral-100 odd:dark:bg-neutral-900 @[1px]:bg-[unset]! @[1px]:odd:bg-[unset]': !item._selected }"
+                <tr @click="$emit('clicked', item)"
+                    :class="{ 'bg-blue-500 text-black': item._selected, 'odd:bg-neutral-100 odd:dark:bg-neutral-900 @[1px]:bg-[unset]! @[1px]:odd:bg-[unset]': !item._selected }"
                     class=" border-b dark:border-neutral-700 border-neutral-200  @[1px]:flex @[1px]:flex-col  @[1px]:my-4">
                     <th v-if="showSelect" scope="col" class="p-4">
                         <div class="flex items-center">
@@ -107,25 +108,28 @@ const emit = defineEmits(['fullList', 'clicked'])
                             <label for="checkbox-all-search" class="sr-only">checkbox</label>
                         </div>
                     </th>
-                    <td class="px-6 py-3 @[1px]:flex  @[1px]:flex-row justify-between items-center"
-                         v-for="n, j in listMapper" :key="j">
+                    <td class="px-6 py-3 @[1px]:py-2 @[1px]:flex  @[1px]:flex-row justify-between items-center"
+                        v-for="n, j in listMapper" :key="j">
                         <div v-html="n.title" class="w-full hidden @[1px]:block @[1px]:w-full">
 
                         </div>
                         <slot v-if="n.key != '_allItems'" :name="n.key" v-bind="{ item: item[n.key], index: i }">
-                            <div v-html="item[n.key]" class="w-full  ">
+                            <div v-html="item[n.key]" class="w-full @[1px]:text-end">
                             </div>
                         </slot>
-                        <slot v-else :name="n.slotName ?? n.title" v-bind="{item, i }">
-                            <div v-html="item" class="w-full  ">
+                        <slot v-else :name="n.slotName ?? n.title" v-bind="{ item, i }">
+                            <div v-html="item" class="w-full @[1px]:text-end">
                             </div>
                         </slot>
                     </td>
 
                     <td @click.stop v-if="actionCol">
-                        <slot name="action" v-bind="{ item,  i }">
+                        <div class="flex justify-end px-6 py-2">
+                            <slot name="action" v-bind="{ item, i }">
 
-                        </slot>
+                            </slot>
+                        </div>
+
                     </td>
                     <!-- {{item}} -->
                 </tr>

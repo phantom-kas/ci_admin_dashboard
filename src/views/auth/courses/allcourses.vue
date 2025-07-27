@@ -79,7 +79,7 @@ const handelImageUpdate = (file: any) => {
 }
 </script>
 <template>
-    <div class="w-full flex flex-col gap-y-4 pt-6">
+    <div class="w-full flex flex-col gap-y-4 pt-10 ">
         <!-- {{ courses }} -->
         <!-- <buttonLoads @click="pp" type="button" class="sm:w-[200px]"></buttonLoads> -->
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
@@ -95,7 +95,7 @@ const handelImageUpdate = (file: any) => {
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList @clicked="cc" action-col @full-list="e => courses = e" :listMapper="[
+        <tabelList class=" mt-2" @clicked="cc" action-col @full-list="e => courses = e" :listMapper="[
             { key: '_allItems', title: 'Courses', slotName: 'cc' },
             { key: 'trackName', title: 'Track' },
             { key: 'created_at', title: 'Created At' },

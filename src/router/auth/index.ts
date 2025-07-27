@@ -1,4 +1,6 @@
+import users from './users.ts';
 export default [
+    ...users,
     {
         name: 'dashboard',
         path: '/dashboard',
@@ -81,6 +83,27 @@ export default [
         props: (route: { params: { id: string } }) => ({
             // mode: 'edit',
             id: route.params.id
-        })
+        }),
+        children: [
+
+            {
+                name: 'edit-track-image-track',
+                path: 'edit-track-image',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/track.vue'),
+            },
+            {
+                name: 'edit-track-track',
+                path: 'edit-track',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/track.vue'),
+            },
+            {
+                name: 'track-courses',
+                path: 'courses',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/track.vue'),
+            },
+        ]
     },
 ]

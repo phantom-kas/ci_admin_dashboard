@@ -69,14 +69,25 @@
     /* @theme --color-yello: black; */
 }
 
-.dark .theme2cont, .dark .quill,.dark .ql-picker-options {
+.dark .theme2cont, .dark .quill, .dark .ql-picker-options {
     @apply text-white1 bg-black
 }
 
-.dark .theme1cont, .dark .quill, .dark .ql-toolbar.ql-snow ,.dark .ql-picker-options{
-    @apply border-gray-600 dark:border text-white1 bg-black
+.dark .theme1cont, .dark .ql-picker-options {
+    @apply dark:border-gray-600 dark:border text-white1 bg-black
 }
 
+.ql-editor{
+   @apply border-t-gray-600! border-t! p-0 min-h-15 pt-3
+}
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+    @apply border-none
+}
+
+.dark .ql-toolbar.ql-snow {
+    @apply bg-black
+}
 
 .dark .ql-editor.ql-blank::before {
     /* color: red !important; */
