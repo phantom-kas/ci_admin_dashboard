@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AvatarImage from './avatarImage.vue';
+
 defineProps({
     name: {
         type: String,
@@ -16,7 +18,8 @@ defineProps({
 </script>
 <template>
     <div class=" flex flex-row justify-start items-center gap-x-3">
-        <img class=" size-10 rounded-[50%]" :src />
+        <AvatarImage :url="src"/>
+        <!-- <img class=" size-10 rounded-[50%]"  /> -->
         <div class="flex flex-col justify-between h-full ">
             <slot name="name">
                 <span class=" leading-4 font-[600]">{{name}}</span>

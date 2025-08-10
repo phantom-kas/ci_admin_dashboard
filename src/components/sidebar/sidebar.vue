@@ -29,7 +29,7 @@ const handelToggle = () => {
             </Teleport>
         <div v-show="isOpen" class="w-full flex h-full flex-col duration-150 transition-transform z-70">
             <sideBarLink :to="{name:'dashboard'}" text="Dashboard" />
-            <sideBarLink text="Invoice">
+            <sideBarLink :to="{name:'invoices'}" text="Invoice">
                 <template #icon="{ iconClass }">
                     <IconFile :class="iconClass" class="" />
                 </template>

@@ -110,21 +110,23 @@ axios.interceptors.response.use(
     const alerts = useToastStore();
 
     if (error.response) {
-      alerts.addToast(
+    ((refresh && error.response.status == 401) || (error.response.status != 401)) && alerts.addToast(
         error.response.data.message,
         error.response.data.status,
         "s"
       );
-      throw error;
-    } if (error.response && error.response.status === 401 && !refresh) {
+      // window.alert(error.response.status)
+      // throw error;
+    }
+    if (error.response && error.response.status === 401 && !refresh) {
       originalRequest._retry = true;
       c = c + 1;
       refresh = true;
       let url = "";
-      let data: { refresh_token: string; sid?: string | number } = {
-        refresh_token: user.getRToken,
+      let data = {
+        refreshToken: user.getRToken,
       };
-      url = "users/getNewToken";
+      url = "generate_new_access_token";
       return axios({
         url,
         method: "POST",
@@ -136,9 +138,9 @@ axios.interceptors.response.use(
           return res;
         })
         .then((res) => {
-          user.SetTokens(res.data.refreshToken, res.data.accessToken);
+          user.SetTokens(res.data.data.refreshToken, res.data.data.accessToken);
           axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res.data.accessToken;
+            "Bearer " + res.data.data.accessToken;
           originalRequest.headers.Authorization =
             axios.defaults.headers.common["Authorization"];
           refresh = false;

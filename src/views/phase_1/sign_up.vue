@@ -14,7 +14,6 @@ const formData = useLocalStorage('registeration_from', {
     firstName: '',
     lastName: '',
     email: '',
-    contact: '',
     validate: false
 })
 
@@ -55,7 +54,6 @@ const handelSubmit = () => {
                 firstName: '',
                 lastName: '',
                 email: '',
-                contact: '',
                 validate: false
             }
             passwords.value = {
@@ -97,7 +95,7 @@ const handelbtnClick=()=>{
         <Input required :data="formData" name="firstName" label="First name" class=" w-full" />
         <Input required :data="formData" name="lastName" label="Last name" class=" w-full" />
         <Input required type="email" :data="formData" name="email" label="Email" class=" w-full" />
-        <Input required type="tel" :data="formData" name="contact" label="Contact" class=" w-full" />
+        <Input required type="tel" :data="formData" name="phone" label="Phone" class=" w-full" />
         <Input required :data="passwords" type="password" name="password" label="Password" class=" w-full" />
         <Input required :data="passwords" type="password" name="confPassword" label="Confirm password"
             class=" w-full" />

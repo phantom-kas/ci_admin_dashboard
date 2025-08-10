@@ -39,6 +39,21 @@ export default [
         alias: '/',
         component: () => import('../../views/auth/dashboard.vue'),
     },
+
+    {
+        name: 'invoices',
+        path: '/invoices',
+        alias: '/',
+        component: () => import('../../views/auth/invoices.vue'),
+        children: [
+            {
+                name: 'add-invoice',
+                path: 'add-invoice',
+                // alias: '/',
+               component: () => import('../../views/auth/invoices.vue'),
+            },]
+    },
+
     {
         name: 'courses',
         path: '/courses',
@@ -77,7 +92,7 @@ export default [
     },
     {
         name: 'track',
-        path: 'track/:id',
+        path: '/track/:id',
         // alias: '/',
         component: () => import('../../views/auth/tracks/track.vue'),
         props: (route: { params: { id: string } }) => ({
@@ -107,3 +122,6 @@ export default [
         ]
     },
 ]
+
+
+

@@ -137,7 +137,7 @@ const route = useRoute()
 <template>
     <formContainer v-if="hasLoaded" :key="key" @submit="handelUpload()" @close="router.go(-1)"
         :title="!id ? 'Add User' : 'Edit User'" class="z-80 relative">
-        <div v-if="!id" class="flex flex-col justify-center items-center w-max100 gap-y-4 mt-4 mx-auto">
+        <div v-if="!id" class="flex flex-col justify-center items-center w-max300 gap-y-4 mt-4 mx-auto">
             <img v-if=image :src="imageUrl" class=" w-full rounded-[50%]" alt="">
             <!-- {{ image?.img }} -->
             <buttonLoads type="button" class="flex flex-row gap-4 w-full" @click="showImagePicker = true">

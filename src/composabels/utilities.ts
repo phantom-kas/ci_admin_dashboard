@@ -47,3 +47,9 @@ export function anyCurrency(
   }
   return currenys + ` ${n.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
 }
+
+
+
+const urlAuthUnAuth = (gestUrl,authUrl) =>{
+
+}

@@ -1,16 +1,23 @@
+/* @config '../../../tailwind.config.js'; */
 @import "tailwindcss";
 @import '../../../node_modules/quill/dist/quill.snow.css';
 @import '../../../node_modules/quill/dist/quill.core.css';
 /* @import './quill.css'; */
-@import './base.css';
 
+@import './base.css';
+@import './colors.css';
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
+@media (prefers-color-scheme: dark) {}
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+.link_sidebar {
+    @apply rounded sm:w-[unset] w-full px-3 py-2 hover:hover:bg-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-black
+}
 
 @theme {
     --color-blue: #01589A;
@@ -51,39 +58,50 @@
     --container-max300: min(300px, 100%);
     --container-max200: min(200px, 100%);
     --container-max100: min(100px, 100%);
+    --container-max1200: min(1200px, 100%);
+    --container-max1000: min(1000px, 100%);
+    --container-max700: min(700px, 100%);
     --container-max150: min(150px, 100%);
     --container-sidebar300: min(300px, calc(100% - 2rem));
 
 
 }
 
+.plr {
+    @apply px-6
+}
 
+* {
+    @apply scheme-normal!
+}
 
 
 .theme1cont,
 .theme2cont,
-.quill,
-.ql-picker-options,
-.ql-toolbar.ql-snow {
+.theme3cont,
+
+.ql-picker-options {
     @apply bg-white text-black
     /* @theme --color-yello: black; */
 }
 
-.dark .theme2cont, .dark .quill, .dark .ql-picker-options {
+.dark .theme3cont,.dark .theme2cont, .dark .quill, .dark .ql-picker-options {
     @apply text-white1 bg-black
 }
 
 .dark .theme1cont, .dark .ql-picker-options {
-    @apply dark:border-gray-600 dark:border text-white1 bg-black
+    @apply dark:border-neutral-900 dark:border text-white1 bg-black
 }
 
-.ql-editor{
-   @apply border-t-gray-600! border-t! p-0 min-h-15 pt-3
+.ql-editor {
+    @apply border-t-gray-600! border-t! p-0 min-h-15 pt-3
 }
+
 .ql-container.ql-snow,
 .ql-toolbar.ql-snow {
     @apply border-none
 }
+
 
 .dark .ql-toolbar.ql-snow {
     @apply bg-black

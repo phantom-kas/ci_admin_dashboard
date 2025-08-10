@@ -29,7 +29,6 @@ const handelSubmit = () => {
     })
         .then(res => {
             if (res.data.status != 'success') return
-
             router.push({ name: 'login' })
         })
 }

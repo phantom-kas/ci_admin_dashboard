@@ -123,7 +123,7 @@ const route = useRoute()
         <Input :data="formData" class=" w-full" name="duration" label="Duration" />
         <Input :data="formData" class=" w-full" name="instructor" label="Instructor" />
         <div v-if="!id"
-            class="flex flex-col justify-center items-center w-max100 gap-y-4 mt-4 mx-auto">
+            class="flex flex-col justify-center items-center w-max300 gap-y-4 mt-4 mx-auto">
             <img v-if=image :src="imageUrl" class=" w-full" alt="">
             <!-- {{ image?.img }} -->
             <buttonLoads type="button" class="flex flex-row gap-4 w-full" @click="showImagePicker = true">

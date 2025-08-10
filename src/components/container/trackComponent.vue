@@ -65,7 +65,7 @@ const cc = () => {
                 {{ track.duration }}</span>
             <span v-if="showInstructor" class=" mt-1"> <font-awesome-icon :icon="['far', 'user']" />
                 {{ track.Instructor }}</span>
-            <div class="w-full flex flex-row justify-start items-center gap-x-4 mt-2">
+            <div class="w-full flex flex-row justify-start items-center gap-x-4 mt-2 text-xs">
                 <span v-for="course in courses" :key="course" :class="courseStlye(course)"
                     class="  rounded-xl flex items-center justify-center bg-BlueLightest text-green-deep font-[500] text-xs py-1 px-5">
                     {{ course }}

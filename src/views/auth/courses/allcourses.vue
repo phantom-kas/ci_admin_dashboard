@@ -70,7 +70,7 @@ const handelImageUpdate = (file: any) => {
     return axios.put('/course/image/' + route.params.id, { file }, {
         headers: {
             'Content-Type': 'multipart/form-data',
-        },_showAllMessages:true,_load:true
+        }, _showAllMessages: true, _load: true
     }).then(res => {
         if (res.data.status != 'success') return
 
@@ -124,7 +124,7 @@ const handelImageUpdate = (file: any) => {
             defer>
             <createCourse v-if="route.name == 'add-course' || route.name == 'edit-course'" @editSuccess="handelEdited"
                 @success="e => { router.go(-1); courses.unshift(e) }" />
-            <image_picker  v-else :aspectRatio="1" @crop="(e: any) => handelImageChange(e)" class="z-[1000] my-auto" />
+            <image_picker v-else :aspectRatio="1" @crop="(e: any) => handelImageChange(e)" class="z-[1000] my-auto" />
 
         </screen2>
     </div>

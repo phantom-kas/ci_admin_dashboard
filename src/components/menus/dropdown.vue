@@ -9,13 +9,14 @@ const dropdownPositionClass = ref('top-full') // default below
 
 const props = defineProps({
     options: {
-        type: Object as PropType<{ icon: [string,string], emit: string, isLink?: boolean, to?: object, label: string }[]>,
+        type: Object as PropType<{ icon: [string, string], emit: string, isLink?: boolean, to?: object, label: string ,hide?:boolean }[]>,
         default: [{ icon: ['fas', 'trash-can'], label: 'Delete', emit: 'del' }]
     }
 })
 
 
 const toggleDropdown = async () => {
+    handelCloseAllOpen()
     isOpen.value = !isOpen.value
     if (isOpen.value) {
         dropdownPositionClass.value = ''
@@ -65,14 +66,16 @@ const adjustDropdownPosition = () => {
 // Optional: close on outside click
 const handleClickOutside = (e: any) => {
     if (!trigger.value) return
-
-
     if (
         !trigger.value.contains(e.target) &&
         !dropdown.value?.contains(e.target)
     ) {
         isOpen.value = false
     }
+}
+
+const handelCloseAllOpen = () => {
+    document.querySelectorAll('.drop-cont').forEach((e) => e.classList.add('hidden'))
 }
 
 onMounted(() => {
@@ -103,14 +106,17 @@ onMounted(() => {
         </button>
 
         <transition name="fade">
-            <div v-if="isOpen" ref="dropdown" :class="dropdownPositionClass"
-                class="absolute z-50 mt-2 w-40  shadow-lg dark:border-bg-white3   rounded dark:bg-neutral-950 bg-white1 cursor-pointer">
+            <div v-show="isOpen" ref="dropdown" :class="dropdownPositionClass"
+                class="absolute z-50 mt-2 w-40  shadow-lg dark:border-bg-white3   rounded dark:bg-neutral-950 bg-white1 cursor-pointer drop-cont">
                 <ul class=" w-full flex flex-col  items-center py-2 gap-y-2">
-                    <li  @click="$emit(op.emit)" v-for="op, i in options" :key="i"
-                        class="py-1 px-3 rounded-sm hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer w-[90%] gap-x-2 flex items-center">
-                        <FontAwesomeIcon size="lg" :icon="op.icon" />
-                        <span class="" v-html="op.label"></span>
-                    </li>
+                    <template  v-for="op, i in options" :key="i">
+                        <li v-if="!op.hide" @click="$emit(op.emit)"
+                            class="py-1 px-3 rounded-sm hover:bg-gray-200 dark:hover:bg-neutral-800 cursor-pointer w-[90%] gap-x-2 flex items-center">
+                            <FontAwesomeIcon size="lg" :icon="op.icon" />
+                            <span class="" v-html="op.label"></span>
+                        </li>
+                    </template>
+
 
                 </ul>
             </div>
@@ -128,5 +134,9 @@ onMounted(() => {
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+.hide {
+    display: none;
 }
 </style>

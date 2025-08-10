@@ -13,6 +13,8 @@ import dropdown from '@/components/menus/dropdown.vue';
 import axios from 'axios';
 import image_picker from '@/components/form_components/image_picker.vue';
 import UserCard from '@/components/cards/userCard.vue';
+import confrimComponent from '@/components/confrimComponent.vue';
+const showConfirm = ref(false)
 
 const router = useRouter()
 const props = defineProps({
@@ -35,6 +37,9 @@ const handelDelete = (id: string | number, i: number) => {
         if (res.data.status != 'success') return;
 
         users.value.splice(i, 1)
+        pl.splice(pl.findIndex((le)=>le.id = id),1)
+
+        showConfirm.value = false
         // window.alert(i)
     })
 }
@@ -67,6 +72,7 @@ const handelImageChange = async (e: any) => {
         router.go(-1)
         // console.log(course.value.i);
         users.value[users.value.findIndex((e) => e.id == route.params.id)]['image'] = Url
+        pl[pl.findIndex((le)=>le.id = e.id)]['image'] = Url
         showImagePicker.value = false
     }
 }
@@ -102,8 +108,15 @@ const getSingleUser = async (id: string) => {
         singleUser.value = res.data.data[0]
         singleUser.value.image = getImageUrl(singleUser.value.image)
         router.push({ name: 'user-user', params: { id } })
+
+
     })
 }
+
+let selected = { id:'', i:0 }
+let pl =[]
+
+// const em = (e)=>window.alert(e.length)/
 </script>
 <template>
     <div class="w-full flex flex-col gap-y-4 pt-10 ">
@@ -122,7 +135,7 @@ const getSingleUser = async (id: string) => {
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
+        <tabelList @paginationList="e=>{pl=e,em(e)}" beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
             @full-list="e => users = e" :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
                 { key: 'email', title: 'Email address' },
@@ -130,7 +143,7 @@ const getSingleUser = async (id: string) => {
                 { key: 'gender', title: 'Gender' },
             ]" url="users">
             <template #cc="{ item, i }">
-                <!-- {{ item }} -->
+                <!-- {{ item.email }} -->
                 <avatar1 :src="getImageUrl(item.image)">
                     <template #name>
                         {{ item.firstName }} {{ item.lastName }}
@@ -138,12 +151,13 @@ const getSingleUser = async (id: string) => {
                 </avatar1>
             </template>
             <template #action="{ item, i }">
+
                 <dropdown @editimage="router.push({ name: 'edit-user-image', params: { id: item.id } })"
                     @edit="router.push({ name: 'edit-user', params: { id: item.id } })"
-                    @delete="handelDelete(item.id, i)" :options="[
+                    @delete="selected = { id: item.id, i }; showConfirm=true" :options="[
                         { icon: ['fas', 'pencil-alt'], label: 'Edit', emit: 'edit' },
                         { icon: ['fas', 'file-pen'], label: 'Edit Image', emit: 'editimage' },
-                        { icon: ['far', 'trash-can'], label: 'Delete', emit: 'delete' }
+                        { icon: ['far', 'trash-can'], label: 'Delete', emit: 'delete' ,hide:(item.email == 'deleted') }
                     ]" />
             </template>
         </tabelList>
@@ -152,22 +166,26 @@ const getSingleUser = async (id: string) => {
             v-if="route.name == 'add-user' || route.name == 'edit-user' || route.name == 'edit-user-image' || route.name == 'user-user'"
             to="#modal2" defer>
             <!-- <Transition name="list1"> -->
-                <createUser :type="type == 'admins' ? 'admin' : 'learner'"
-                    v-if="route.name == 'add-user' || route.name == 'edit-user'" @editsuccess="handelEdited"
-                    @success="e => { router.go(-1); users.unshift(e) }" />
-                <image_picker v-else-if="route.name == 'edit-user-image'" :aspectRatio="1"
-                    @crop="(e: any) => handelImageChange(e)" class="z-[1000] my-auto" />
+            <createUser :type="type == 'admins' ? 'admin' : 'learner'"
+                v-if="route.name == 'add-user' || route.name == 'edit-user'" @editsuccess="handelEdited"
+                @success="e => { router.go(-1); users.unshift(e);pl.unshift(e) }" />
+            <image_picker v-else-if="route.name == 'edit-user-image'" :aspectRatio="1"
+                @crop="(e: any) => handelImageChange(e)" class="z-[1000] my-auto" />
 
-                <UserCard @close="router.go(-1)" :objectMapper="[
-                    { key: 'firstName', label: 'First Name' },
-                    { key: 'lastName', label: 'Last Name' },
-                    { key: 'email', label: 'Email' },
-                    { key: 'phone', label: 'Phone' },
-                    { key: 'location', label: 'Location' },
-                ]" :data="singleUser" :image="singleUser.image" :name="singleUser.firstName + ' ' + singleUser.lastName"
-                    :email="singleUser.email" class=" w-min495 z-90 my-auto" v-else />
+            <UserCard @close="router.go(-1)" :objectMapper="[
+                { key: 'firstName', label: 'First Name' },
+                { key: 'lastName', label: 'Last Name' },
+                { key: 'email', label: 'Email' },
+                { key: 'phone', label: 'Phone' },
+                { key: 'location', label: 'Location' },
+            ]" :data="singleUser" :image="singleUser.image" :name="singleUser.firstName + ' ' + singleUser.lastName"
+                :email="singleUser.email" class=" w-min495 z-90 my-auto" v-else />
             <!-- </Transition> -->
         </screen2>
+
+        <confrimComponent @ok="handelDelete(selected.id, selected.i)" v-if="showConfirm" @close="showConfirm = false" />
     </div>
+
+
 </template>
 <style scoped></style>

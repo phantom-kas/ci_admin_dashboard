@@ -117,7 +117,7 @@ const title = route.name == 'add-course' ? 'Add New Course' : 'Edit Course'
         <Input :data="formData" class=" w-full" name="title" label="Title" />
         <select_input :options="tracks" :data="formData" class=" w-full" name="track" label="Track" />
         <div v-if="route.name == 'add-course'"
-            class="flex flex-col justify-center items-center w-max100 gap-y-4 mt-4 mx-auto">
+            class="flex flex-col justify-center items-center w-max300 gap-y-4 mt-4 mx-auto">
             <img v-if=image :src="imageUrl" class=" w-full" alt="">
             <!-- {{ image?.img }} -->
             <buttonLoads type="button" class="flex flex-row gap-4 w-full" @click="showImagePicker = true">
