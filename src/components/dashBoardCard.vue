@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import container1 from './container/container1.vue';
 import iconUp from './icons/iconUp.vue';
+import { faArrowDown,faArrowUp, faMinus } from '@fortawesome/free-solid-svg-icons';
 defineProps({
     number: {
         type: String,
@@ -11,8 +13,8 @@ defineProps({
         default: 'Total Learners'
     },
     change: {
-        type: String,
-        default: 'Total Learners'
+        type: Number,
+        default: 0
     }
 })
 </script>
@@ -24,10 +26,22 @@ defineProps({
                 <span class=" text-[46px] font-[600] text-[#1F1F36] dark:text-neutral-300 leading-8" >
                     {{ number }}
                 </span>
-                <span
+                <span v-if="change > 0"
                     class=" text-green-600 text-[14px]  font-[500] dark:text-green-400 text-nowrap  flex flex-row">
                     <span class=" flex flex-row items-center">
-                        <iconUp class=" stroke-green-600" />{{change}}
+                         <FontAwesomeIcon :icon="faArrowUp" />{{change}}%
+                    </span><span class=" text-[#7F7E83] dark:text-neutral-300 ml-2 font-[400]">vs last month</span>
+                </span>
+                <span v-else-if="change < 0"
+                    class=" text-red-600 text-[14px]  font-[500] dark:text-red-400 text-nowrap  flex flex-row">
+                    <span class=" flex flex-row items-center">
+                        <FontAwesomeIcon :icon="faArrowDown" />{{ Math.abs(change)}}%
+                    </span><span class=" text-[#7F7E83] dark:text-neutral-300 ml-2 font-[400]">vs last month</span>
+                </span>
+                <span v-else
+                    class=" text-neutral-600 text-[14px]  font-[500] dark:text-neutral-400 text-nowrap  flex flex-row">
+                    <span class=" flex flex-row items-center">
+                        <FontAwesomeIcon :icon="faMinus" />
                     </span><span class=" text-[#7F7E83] dark:text-neutral-300 ml-2 font-[400]">vs last month</span>
                 </span>
             </div>

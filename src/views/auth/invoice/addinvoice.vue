@@ -32,18 +32,19 @@ const getracks = async () => {
 }
 
 const users = ref([] as any[])
+const userArr = ref([] as any[])
 const getUsers = async () => {
     return axios.get('/users/options').then(res => {
         if (res.data.status != 'success') return
 
+        userArr.value = res.data.data;
         res.data.data.forEach((element: any) => {
             users.value.push({ label: element.firstName + ' ' + element.lastName, value: element.id })
         });
     })
 }
 
-const showImagePicker = ref(false)
-const imageUrl = ref('')
+
 const formData = ref({ price: '', track: '', user: '' });
 const emit = defineEmits(['close', 'success', 'editSuccess'])
 const loading = ref(false)
@@ -53,17 +54,29 @@ const handelUpload = async () => {
     return axios.post('/invoice/track', {
         trackId: formData.value.track,
         user: formData.value.user,
-        price:parseInt(formData.value.price +'')* 100,
+        price: parseInt(formData.value.price + '') * 100,
     }, { _showAllMessages: true }).finally(() => loading.value = false)
         .then(res => {
-            if (res.data.status != 'success') return
+            if (res.data.status != 'success') return;
+
+            let u = userArr.value.find((e) => e.id == formData.value.user);
+
+            console.log('***************************************')
+            console.log(u)
+            console.log('***************************************')
             emit('success', {
-                id: route.params.id,
-                image: imageUrl,
-             
+                id: res.data.data.invoiceId,
+                // image: imageUrl,
+                paid: 0,
+                status: 'pending',
+                amount: parseInt(formData.value.price + '') * 100,
+                created_at: 'Just Now',
                 track: tracks.value.find((e) => e.value == formData.value.track)['label'],
+                ...u,
                 __v: new Date().getTime()
             })
+
+
         })
 }
 

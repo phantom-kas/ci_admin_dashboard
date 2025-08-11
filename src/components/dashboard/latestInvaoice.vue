@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import avatar1 from '../avatars/avatar1.vue';
 import avatarImage from '../avatars/avatarImage.vue';
+import axios from 'axios';
+import { anyCurrency, getImageUrl } from '@/composabels/utilities';
 
 const invoices = ref([{
     url: 'dadsa',
@@ -42,6 +44,13 @@ const invoices = ref([{
 },
 
 ])
+
+onMounted(()=>{
+    axios.get('/invoices?limit=3').then(res => {
+        if (res.data.status != 'success') return;
+        invoices.value = res.data.data;
+    })
+})
 </script>
 <template>
     <div class=" flex flex-col gap-y-6">
@@ -50,12 +59,12 @@ const invoices = ref([{
             <span>AMOUNT</span>
         </div>
         <div v-for="invoice, i in invoices" :key="i" class="flex flex-rol justify-between gap-x-4 ">
-            <avatar1 :url="invoice.url">
+            <avatar1 :url="getImageUrl(invoice.url)">
                 <template #name>
                     <span class=" h-full flex flex-row items-center justify-center">{{invoice.firstName+' '+invoice.lastName}}</span>
                 </template>
             </avatar1>
-            <span v-html="invoice.amount"></span>
+            <span v-html="anyCurrency(invoice.amount)"></span>
         </div>
     </div>
 </template>

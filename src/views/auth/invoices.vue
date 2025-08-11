@@ -13,6 +13,7 @@ import confrimComponent from '@/components/confrimComponent.vue';
 import addinvoice from './invoice/addinvoice.vue';
 import screen2 from '@/components/container/screen2.vue';
 import axios from 'axios';
+import Dropdown from '@/components/menus/dropdown.vue';
 const router = useRouter()
 
 
@@ -31,6 +32,7 @@ const handelDelete = (id: string | number, i: number) => {
 const selected = ref({ id: '', i: 0 });
 const showConfirm = ref(false);
 const invoices = ref([] as any[]);
+const pl = ref([] as any[]);
 
 
 const route = useRoute();
@@ -50,13 +52,15 @@ const route = useRoute();
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList @full-list="e => invoices = e" url="invoices" beark-point="710px" class=" mt-2" actionCol :listMapper="[
-            { key: '_allItems', title: 'User', slotName: 'cc' },
-            { key: 'created_at', title: 'Date' },
-            { key: 'amount', title: 'Amount', slotName: 'amt' },
-            { key: 'paid', title: 'Paid' },
-            { key: 'status', title: 'Status' },
-        ]">
+        <!-- {{ invoices }} -->
+        <tabelList @pagination-list="e => pl = e" @full-list="e => invoices = e" url="invoices" beark-point="710px"
+            class=" mt-2" actionCol :listMapper="[
+                { key: '_allItems', title: 'User', slotName: 'cc' },
+                { key: 'created_at', title: 'Date' },
+                { key: 'amount', title: 'Amount', slotName: 'amt' },
+                { key: 'paid', title: 'Paid' },
+                { key: 'status', title: 'Status' },
+            ]">
             <template #cc="{ item, i }">
                 <!-- {{ item }} -->
                 <Avatar1 :url="getImageUrl(item.image)">
@@ -65,6 +69,7 @@ const route = useRoute();
                     </template>
                 </Avatar1>
             </template>
+
             <template #amount="{ item, i }">
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
@@ -72,7 +77,24 @@ const route = useRoute();
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
             <template #status="{ item, i }">
-                <span
+
+
+                <Dropdown v-if="item == 'pending'" :options="[
+                    { label: 'Pending', icon: ['far', 'clock'], emit: 'pending' },
+                    { label: 'Paid', icon: ['fas', 'check'], emit: 'paid' }]">
+                    <template #btn>
+                        <div class=" flex items-center gap-4">
+                            <span
+                                class="w-fit text-right capitalize py-1 px-2 font-[500] text-xs rounded-2xl flex items-center justify-center"
+                                :class="{ ' bg-amber-400 text-amber-950': item == 'pending', ' bg-green-500 text-green-950': item == 'paid' }">
+                                {{ item }}</span>
+
+                            <FontAwesomeIcon :icon="['fas', 'chevron-down']" />
+                        </div>
+                    </template>
+                </Dropdown>
+
+                <span v-else
                     class="w-fit text-right capitalize py-1 px-2 font-[500] text-xs rounded-2xl flex items-center justify-center"
                     :class="{ ' bg-amber-400 text-amber-950': item == 'pending', ' bg-green-500 text-green-950': item == 'paid' }">
                     {{ item }}</span>
@@ -89,10 +111,8 @@ const route = useRoute();
 
         <confrimComponent @ok="handelDelete(selected.id, selected.i)" v-if="showConfirm" @close="showConfirm = false" />
 
-        <screen2 @close="router.go(-1)"
-            v-if="route.name == 'add-invoice' " to="#modal2"
-            defer>
-           <addinvoice/>
+        <screen2 @close="router.go(-1)" v-if="route.name == 'add-invoice'" to="#modal2" defer>
+            <addinvoice @success="e => { router.go(-1), pl.unshift(e); invoices.unshift(e) }" />
 
         </screen2>
     </div>

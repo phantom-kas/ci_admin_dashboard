@@ -11,10 +11,11 @@ import {
     faSun as farSun,
     faCalendar,
     faUser,
+    faClock,
     
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
@@ -24,6 +25,8 @@ import "./interceptors/axios";
 library.add(
     faFilePen,
     faUser,
+    faClock,
+    faCheck,
     faEllipsis,
     faTrashCan,
     faPencilAlt,
