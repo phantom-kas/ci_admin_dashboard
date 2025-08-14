@@ -3,7 +3,7 @@ import tabelList from '@/components/list/tabelList.vue';
 import search_input from '@/components/form_components/search_input.vue';
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useRoute, useRouter } from 'vue-router';
-import { anyCurrency, getImageUrl } from '@/composabels/utilities';
+import { anyCurrency, debounce, getImageUrl } from '@/composabels/utilities';
 import Avatar1 from '@/components/avatars/avatar1.vue';
 import AvatarImage from '@/components/avatars/avatarImage.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -23,7 +23,9 @@ const handelDelete = (id: string | number, i: number) => {
     axios.delete('/invoice/' + id, { _showAllMessages: true }).then(res => {
         if (res.data.status != 'success') return;
 
-        invoices.value.splice(i, 1);
+        // window.alert(i)
+        invoices.value.splice(invoices.value.findIndex((e) => e.id == id), 1);
+        pl.value.splice(pl.value.findIndex((e) => e.id == id),1)
         showConfirm.value = false;
 
     });
@@ -36,11 +38,21 @@ const pl = ref([] as any[]);
 
 
 const route = useRoute();
+
+const listKey = ref(0)
+let listParams = { search: undefined as undefined | string }
+const searchFn = debounce((e: string) => {
+
+    listParams = { search: e }
+    console.log(e)
+    listKey.value += 1
+}, 500);
+
 </script>
 <template>
     <div class="w-max1200 flex flex-col gap-y-4 pt-10 px-6">
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input />
+            <search_input @input="e=>searchFn(e)"/>
             <router-link :to="{ name: 'add-invoice' }">
                 <buttonLoads type="button" class="sm:w-[200px]">
                     <template #label>
@@ -53,9 +65,11 @@ const route = useRoute();
             </router-link>
         </form>
         <!-- {{ invoices }} -->
-        <tabelList @pagination-list="e => pl = e" @full-list="e => invoices = e" url="invoices" beark-point="710px"
+        <tabelList :key="listKey"  :params="listParams" @pagination-list="e => pl = e" @full-list="e => invoices = e" url="invoices" beark-point="710px"
             class=" mt-2" actionCol :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
+                { key: 'track', title: 'Track' },
+                // { key: 'id', title: 'ID' },
                 { key: 'created_at', title: 'Date' },
                 { key: 'amount', title: 'Amount', slotName: 'amt' },
                 { key: 'paid', title: 'Paid' },

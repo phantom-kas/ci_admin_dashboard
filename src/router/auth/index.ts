@@ -31,13 +31,28 @@ export default [
                 // alias: '/',
                 component: () => import('../../views/auth/tracks/createTrack.vue'),
             },
+
         ]
     },
     {
         name: 'dashboard',
         path: '/dashboard',
-        alias: '/',
+        // alias: '/',
         component: () => import('../../views/auth/dashboard.vue'),
+    },
+    {
+        name: 'profile-info',
+        path: '/profile-info',
+        // alias: '/',
+        component: () => import('../../views/auth/users/settings.vue'),
+        children: [
+            {
+                path: 'change_image',
+                name: 'change_image',
+                component: () => import('../../views/auth/users/settings.vue'),
+
+            }
+        ]
     },
 
     {
@@ -50,7 +65,7 @@ export default [
                 name: 'add-invoice',
                 path: 'add-invoice',
                 // alias: '/',
-               component: () => import('../../views/auth/invoices.vue'),
+                component: () => import('../../views/auth/invoices.vue'),
             },]
     },
 
@@ -118,6 +133,18 @@ export default [
                 path: 'courses',
                 // alias: '/',
                 component: () => import('../../views/auth/tracks/track.vue'),
+            },
+            {
+                name: 'track-users',
+                path: 'learners',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/track_learners.vue'),
+            },
+            {
+                name: 'reviews',
+                path: 'reviews',
+                // alias: '/',
+                component: () => import('../../views/auth/tracks/track-reviews.vue'),
             },
         ]
     },

@@ -78,7 +78,7 @@
 }
 
 .ql-editor{
-   @apply border-t-gray-600! border-t! p-0 min-h-15 pt-3
+   @apply border-t-neutral-950! border-t! p-0 min-h-15 pt-3
 }
 .ql-container.ql-snow,
 .ql-toolbar.ql-snow {

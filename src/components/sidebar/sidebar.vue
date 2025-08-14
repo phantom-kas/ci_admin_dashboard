@@ -12,15 +12,18 @@ import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useThemeStore } from '@/stores/theme';
 import overlayfixed from '../overlayfixed.vue';
+import { useAuthStore } from '@/stores/auth';
+import { getImageUrl } from '@/composabels/utilities';
 const theme = useThemeStore()
 const darkModelOpen = ref(false)
 const isOpen = ref(true)
 const handelToggle = () => {
     isOpen.value = !isOpen.value
 }
+const user = useAuthStore()
 </script>
 <template>
-    <div :class="[{ 'open': isOpen }, { ' closed': !isOpen }, { 'bg-blue  dark:bg-black dark:border-gray-600 dark:border-r': isOpen }]"
+    <div :class="[{ 'open': isOpen }, { ' closed': !isOpen }, { 'bg-blue  dark:bg-black dark:border-neutral-900 dark:border-r': isOpen }]"
         class=" flex flex-col h-screen w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov">
         <Header :class="[{ 'sm:py-9 mb-4 dark:bg-neutral-800': isOpen }, { 'dark:bg-black': !isOpen }]"
             @toggleOpen="handelToggle()" class="bg-white   rounded-lg sm:px-5  sm:mb-6 " />
@@ -75,10 +78,10 @@ const handelToggle = () => {
                </template>
             </themeSelect>
             <!-- <dropdown /> -->
-            <div class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
-                <avatar1 class=" text-white1 text-[15px]" />
-                <IconLogOut />
-            </div>
+            <router-link :to="{name:'profile-info'}" class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
+                <avatar1 :src="getImageUrl(user.userInfo.image)" class=" text-white1 text-[15px]" />
+                <IconLogOut @click.prevent.stop="" />
+            </router-link>
         </div>
     </div>
 </template>

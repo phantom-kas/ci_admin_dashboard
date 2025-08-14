@@ -8,7 +8,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import screen2 from '@/components/container/screen2.vue';
 import avatar1 from '@/components/avatars/avatar1.vue';
-import { getImageUrl } from '@/composabels/utilities';
+import { debounce, getImageUrl } from '@/composabels/utilities';
 import dropdown from '@/components/menus/dropdown.vue';
 import axios from 'axios';
 import image_picker from '@/components/form_components/image_picker.vue';
@@ -77,13 +77,22 @@ const handelImageUpdate = (file: any) => {
         return true
     })
 }
+
+const listKey = ref(0)
+let listParams = { search: undefined as undefined | string }
+const searchFn = debounce((e: string) => {
+
+    listParams = { search: e }
+    console.log(e)
+    listKey.value += 1
+}, 500);
 </script>
 <template>
     <div class="w-full flex flex-col gap-y-4 pt-10 ">
         <!-- {{ courses }} -->
         <!-- <buttonLoads @click="pp" type="button" class="sm:w-[200px]"></buttonLoads> -->
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input />
+            <search_input @input="e=>searchFn(e)"/>
             <router-link :to="{ name: 'add-course' }">
                 <buttonLoads type="button" class="sm:w-[200px]">
                     <template #label>
@@ -95,7 +104,7 @@ const handelImageUpdate = (file: any) => {
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList class=" mt-2" @clicked="cc" action-col @full-list="e => courses = e" :listMapper="[
+        <tabelList :params="listParams" :key="listKey" class=" mt-2" @clicked="cc" action-col @full-list="e => courses = e" :listMapper="[
             { key: '_allItems', title: 'Courses', slotName: 'cc' },
             { key: 'trackName', title: 'Track' },
             { key: 'created_at', title: 'Created At' },

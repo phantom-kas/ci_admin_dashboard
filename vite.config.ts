@@ -17,4 +17,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  // server: {
+  //   host: '127.0.0.1', // Force IPv4 to avoid Windows IPv6 EACCES
+  //   port: 5173
+  // }
 })

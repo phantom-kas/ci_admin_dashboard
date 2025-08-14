@@ -96,8 +96,8 @@ const emit = defineEmits(['fullList', 'clicked','paginationList'])
 
                 </thead>
             </template>
-            <template #items="{ item, i }">
-                <tr @click="$emit('clicked', item)"
+            <template :key="item[idParam]" #items="{ item, i }">
+                <tr :key="item[idParam]" @click="$emit('clicked', item)"
                     :class="{ 'bg-blue-500 text-black': item._selected, 'odd:bg-neutral-100 odd:dark:bg-neutral-900 @[1px]:bg-[unset]! @[1px]:odd:bg-[unset]': !item._selected }"
                     class=" border-b dark:border-neutral-700 border-neutral-200  @[1px]:flex @[1px]:flex-col  @[1px]:my-4">
                     <th v-if="showSelect" scope="col" class="p-4">

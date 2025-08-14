@@ -15,16 +15,22 @@ import {
     
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
-
+// import {faLofarLocck as farLock} from '@fortawesome/free-regular-svg-icons'
 
 
 library.add(
     faFilePen,
     faUser,
+    faLock,
+// farLock, 
+faPerson,
+faMapPin,
+faLocationDot,
+faPhone,
     faClock,
     faCheck,
     faEllipsis,

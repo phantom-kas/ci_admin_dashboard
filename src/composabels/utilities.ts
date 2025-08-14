@@ -50,6 +50,14 @@ export function anyCurrency(
 
 
 
-const urlAuthUnAuth = (gestUrl,authUrl) =>{
 
+
+export function debounce(cb:Function, delay: number) {
+  let timeOut: number;
+  return (...args: any) => {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(() => {
+      cb(...args);
+    }, delay);
+  };
 }

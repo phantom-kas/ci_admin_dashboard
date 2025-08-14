@@ -64,7 +64,10 @@ const handelUpload = async () => {
             console.log('***************************************')
             console.log(u)
             console.log('***************************************')
+            console.log('***' + res.data.data.invoiceId + ' **************')
+            console.log('***************************************')
             emit('success', {
+                ...u,
                 id: res.data.data.invoiceId,
                 // image: imageUrl,
                 paid: 0,
@@ -72,7 +75,6 @@ const handelUpload = async () => {
                 amount: parseInt(formData.value.price + '') * 100,
                 created_at: 'Just Now',
                 track: tracks.value.find((e) => e.value == formData.value.track)['label'],
-                ...u,
                 __v: new Date().getTime()
             })
 

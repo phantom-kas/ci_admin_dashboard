@@ -77,6 +77,8 @@ const handelImageChange = async (e: any) => {
         showImagePicker.value = false
     }
 }
+
+const key = ref(0)
 const handelEdit = (e: any) => {
     console.log(track.value)
     // track.value = {
@@ -95,54 +97,83 @@ const handelEdit = (e: any) => {
     track.value.description = e.description
     track.value.name = e.name
     track.value.price = e.price
+    key.value = key.value++
+    // window.alert('e')
     // console.log(tracks.value[track.value.i])
     router.go(-1)
 }
 </script>
 <template>
-    <div v-if="hasLoaded" class=" w-[min(100%,742px)] flex flex-col mx-auto py-11">
-        <img :src="getImageUrl(track.image as string)" class=" w-full rounded-t-2xl" alt="">
-        <!-- {{ courses }}
-        {{ track }} -->
-        <!-- {{ courses }} -->
-        <div class=" w-full flex flex-col p-6 gap-y-5 py-11 ">
-            <div class=" flex justify-between w-full items-end">
-                <h1 class=" text-[40px] font-[600] text-4xl">{{ track.name }}</h1>
-                <dropdown class=" text-sm" @editImage="router.push({ 'name': 'edit-track-image-track' })"
-                    @edit="router.push({ name: 'edit-track-track' })" @delete="showConfirm = true" :options="[
-                        { icon: ['fas', 'pencil-alt'], label: 'Edit', emit: 'edit' },
-                        { icon: ['fas', 'file-pen'], label: 'Edit Image', emit: 'editImage' },
-                        { icon: ['far', 'trash-can'], label: 'Delete', emit: 'delete' }
-                    ]" />
-            </div>
-            <div class=" flex justify-start flex-wrap w-full items-center">
-                <div class=" flex gap-x-4 text-sm items-center">
-                    <span class=""> <font-awesome-icon :icon="['far', 'calendar']" />
-                        {{ track.duration }}</span>
-                    <span class=" mt-1"> <font-awesome-icon :icon="['far', 'user']" />
-                        {{ track.Instructor }}</span>
+    <!-- {{ track }} -->
+    <div v-if="hasLoaded" class="w-[min(100%,1200px)] flex flex-col  mx-auto pb-11">
+        <div class=" flex justify-start items-end py-4 gap-12">
+            <h1 :key="key" class=" text-[40px] font-[600] text-4xl">{{ track.name }}</h1>
+
+        </div>
+        <ul class="flex border-b dark:border-b-white w-full mb-4">
+            <li class="">
+                <router-link :to="{ name: 'track', params: { id } }"
+                    class="dark:bg-black not-dark:bg-white inline-block py-2 px-4  ">
+                    Overview</router-link>
+            </li>
+            <li class="mr-1">
+                <router-link :to="{ name: 'track-users' }"
+                    class="dark:bg-black  not-dark:bg-white inline-block py-2 px-4  hover:text-blue "
+                    href="#">Learners</router-link>
+            </li>
+            <li class="mr-1">
+                <router-link :to="{ name: 'reviews' }"
+                    class="dark:bg-black  not-dark:bg-white inline-block py-2 px-4  hover:text-blue "
+                    href="#">Reviews</router-link>
+            </li>
+            <dropdown class=" text-sm" @editImage="router.push({ 'name': 'edit-track-image-track' })"
+                @edit="router.push({ name: 'edit-track-track' })" @delete="showConfirm = true" :options="[
+                    { icon: ['fas', 'pencil-alt'], label: 'Edit', emit: 'edit' },
+                    { icon: ['fas', 'file-pen'], label: 'Edit Image', emit: 'editImage' },
+                    { icon: ['far', 'trash-can'], label: 'Delete', emit: 'delete' }
+                ]">
+                <template #btn>
+                    <span class=" mr-2">More</span>
+                    <FontAwesomeIcon :icon="['fas', 'chevron-down']" />
+                </template>
+            </dropdown>
+        </ul>
+        <RouterView v-if="route.name != 'track'"   :id :track />
+
+        <div :key="key" v-if="route.name == 'track'" class="w-[min(100%,742px)] flex flex-col mx-auto">
+            <img :src="getImageUrl(track.image as string)" class=" w-full rounded-t-2xl" alt="">
+            <div class=" w-full flex flex-col p-6 gap-y-5 py-11 ">
+
+                <div class=" flex justify-start flex-wrap w-full items-center">
+                    <div class=" flex gap-x-4 text-sm items-center">
+                        <span class=""> <font-awesome-icon :icon="['far', 'calendar']" />
+                            {{ track.duration }}</span>
+                        <span class=" mt-1"> <font-awesome-icon :icon="['far', 'user']" />
+                            {{ track.Instructor }}</span>
+                    </div>
+
+                    <span class=" ml-auto text-2xl font-[400]"> {{ anyCurrency(track.price) }}</span>
+                </div>
+                <div class=" flex justify-start flex-wrap w-full items-center  ">
+                    <div class=" flex gap-x-4 text-[12px]  cursor-pointer">
+                        <span v-for="course in courses" class="" @click="router.push({ name: 'track-courses' })">
+                            {{ course.title }}
+                        </span>
+                    </div>
+                    <div class=" ml-auto">
+                        Ratings
+                    </div>
+                </div>
+                <div v-html="track.description" class=" w-full text-sm">
+
                 </div>
 
-                <span class=" ml-auto text-2xl font-[400]"> {{ anyCurrency(track.price) }}</span>
             </div>
-            <div class=" flex justify-start flex-wrap w-full items-center  ">
-                <div class=" flex gap-x-4 text-[12px]  cursor-pointer">
-                    <span v-for="course in courses" class="" @click="router.push({ name: 'track-courses' })">
-                        {{ course.title }}
-                    </span>
-                </div>
-                <div class=" ml-auto">
-                    Ratings
-                </div>
-            </div>
-            <div v-html="track.description" class=" w-full text-sm">
-
-            </div>
-
         </div>
     </div>
 
-    <div v-else class=" mx-auto my-auto flex items-center justify-center p-6 bg-blue rounded-4xl dark:bg-[none]">
+    <div v-else-if="!hasLoaded"
+        class=" mx-auto my-auto flex items-center justify-center p-6 bg-blue rounded-4xl dark:bg-[none]">
         <spinLinePules />
     </div>
 
@@ -170,4 +201,10 @@ const handelEdit = (e: any) => {
 /* .trackwdith{
         width: min(742px);
     } */
+@reference "../../../assets/css/main.css";
+
+
+a.router-link-exact-active {
+    @apply rounded-t not-dark:border-x-black not-dark:border-t-black border-x border-t dark:border-t-white3 dark:border-x-white3 -mb-px mr-1
+}
 </style>
