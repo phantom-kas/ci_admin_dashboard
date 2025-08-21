@@ -50,7 +50,7 @@ const searchFn = debounce((e: string) => {
 
 </script>
 <template>
-    <div class="w-max1200 flex flex-col gap-y-4 pt-10 px-6">
+    <div class="w-max1200 flex flex-col gap-y-4 pt-10">
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
             <search_input @input="e=>searchFn(e)"/>
             <router-link :to="{ name: 'add-invoice' }">

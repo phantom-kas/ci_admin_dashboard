@@ -12,7 +12,7 @@ import {
     faCalendar,
     faUser,
     faClock,
-    
+    faClockFour
 } from "@fortawesome/free-regular-svg-icons";
 
 import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot, faChartColumn } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +23,7 @@ import "./interceptors/axios";
 
 
 library.add(
-    faFilePen,
+    faFilePen,faClockFour,
     faUser,
     faLock,
 // farLock, 

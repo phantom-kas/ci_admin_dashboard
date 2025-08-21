@@ -29,30 +29,36 @@ const props = defineProps({
     }
 })
 const listItems = ref<any[]>([])
-const emit = defineEmits(['fullList'])
+const emit = defineEmits(['fullList', 'paginationList'])
 const lastId = ref<string | undefined>(undefined)
-const loaded = ref(false)
+const loading =  ref(false)
 let loadedPages = [] as any[]
 const fetchContent = async (order = 1) => {
+    if (loading.value) {
+        return
+    }
     if (loadedPages[data.value['currentPage'] * props.itemsPerPage] != undefined) {
         // console.log(data.value['currentPage'] * props.itemsPerPage)/
-        console.log('***************Load page '+data.value['currentPage']+' From Memory*************')
-        let start = (data.value['currentPage'] - 1)* props.itemsPerPage
-        listItems.value = loadedPages.slice(start,props.itemsPerPage + start)
+        console.log('***************Load page ' + data.value['currentPage'] + ' From Memory*************')
+        let start = (data.value['currentPage'] - 1) * props.itemsPerPage
+        listItems.value = loadedPages.slice(start, props.itemsPerPage + start)
         // console.log(listItems.value)
         // lastId.value = loadedPages[data.value['currentPage']][props.itemsPerPage - 2][props.idParam]
     }
     else {
+        loading.value = true
         await axios.get(props.url as string, { params: { ...props.params, limit: props.itemsPerPage, lastId: lastId.value } }).then(res => {
-            if (res.data.status != 'success') return
+            if (res.data.status != 'success') { loading.value = false; return }
 
-            if(data.value['currentPage'] > 1){
-                loadedPages=loadedPages.concat(res.data.data.slice(1))
-            }else{
-                loadedPages=loadedPages.concat(res.data.data)
+            if (data.value['currentPage'] > 1) {
+                loadedPages = loadedPages.concat(res.data.data.slice(1))
+            } else {
+                loadedPages = loadedPages.concat(res.data.data)
             }
             listItems.value = res.data.data
 
+        }).then(() => {
+            loading.value = false
         })
     }
 
@@ -66,7 +72,7 @@ const fetchContent = async (order = 1) => {
     } else {
         data.value.showNext = true
     }
-    lastId.value = loadedPages[(data.value['currentPage'] * props.itemsPerPage) -1][props.idParam]
+    lastId.value = loadedPages[(data.value['currentPage'] * props.itemsPerPage) - 1][props.idParam]
 
 }
 const data = ref({ currentPage: 1, showNext: true })
@@ -84,7 +90,7 @@ onMounted(async () => {
 </script>
 <template>
     <!-- {{ data }} -->
-    <painationElement @prev="fetchContent(-1)" @changePage="fetchContent()" v-if="showPaginationControls" :data
+    <painationElement :disabled="loading" @prev="fetchContent(-1)" @changePage="fetchContent()" v-if="showPaginationControls" :data
         :itemsPerPage />
     <component v-bind="$attrs" :is="component" class="w-full @container overflow-x-clip">
         <slot name="table_header">

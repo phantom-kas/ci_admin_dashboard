@@ -94,7 +94,7 @@ onMounted(() => {
         </div>
         <!-- {{ data }} -->
         <!-- {{ income }} -->
-        <select2 @inputed="(e: { value: string }) => (yearcount(e.value))" :data :icon="['far', 'calendar']"
+        <select2 @inputed="(e:any) => yearcount(e.value)" :data :icon="['far', 'calendar']"
             class=" mt-10 w-max300" type="year" name="year" label="Year" :options="years
                 " />
                 <!-- {{ enroled.values }}

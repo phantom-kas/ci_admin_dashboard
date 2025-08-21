@@ -144,7 +144,7 @@ const searchFn = debounce((e: string) => {
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList :key="listKey" :params="{type:type == 'learners'?'learners':'admins',...listParams}" @paginationList="e=>{pl=e,em(e)}" beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
+        <tabelList :key="listKey" :params="{type:type == 'learners'?'learners':'admins',...listParams}"  beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
             @full-list="e => users = e" :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
                 { key: 'email', title: 'Email address' },

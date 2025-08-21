@@ -80,7 +80,7 @@ const emit = defineEmits(['fullList', 'clicked','paginationList'])
 <template>
     <div class="w-full flex-col flex gap-y-4 @container">
 
-        <paginationList @paginationList="e=>emit('paginationList', e)" @fullList="e => emit('fullList', e)" id="p1" :class="$attrs" :url :params :id-param :component
+        <paginationList @paginationList="(e:any)=>emit('paginationList', e)" @fullList="e => emit('fullList', e)" id="p1" :class="$attrs" :url :params :id-param :component
             :items-per-page
             class="w-full text-sm   text-left rtl:text-right text-neutral-500 dark:text-neutral-400 table-auto">
             <template #table_header>

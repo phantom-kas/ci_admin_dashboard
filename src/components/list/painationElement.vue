@@ -4,6 +4,10 @@ const props = defineProps({
     data: {
         type: Object as PropType<{ currentPage: number, showNext: boolean }>
     },
+    disabled:{
+        type:Boolean,
+        default:false
+    }
 })
 const nextPage = () => {
     if (props.data)
@@ -21,11 +25,11 @@ const emit = defineEmits(['changePage','prev'])
 </script>
 <template>
     <div class=' flex flex-row items-center justify-start   w-max300 gap-4 '>
-        <button class="  theme1cont hover:bg-neutral-600 p-3 rounded-2xl shadow-md cursor-pointer" @click="prevPage"
-            :disabled="data?.currentPage === 1">Previous</button>
+        <button  class="  theme1cont hover:bg-neutral-600 p-3 rounded-2xl shadow-md cursor-pointer" @click="prevPage"
+            :disabled="data?.currentPage === 1 || disabled">Previous</button>
         <span class="">Page {{ data?.currentPage }}
         </span>
-        <button v-if="data?.showNext" class="  theme1cont hover:bg-neutral-600 p-3 rounded-2xl shadow-md cursor-pointer"
+        <button :disabled v-if="data?.showNext" class="  theme1cont hover:bg-neutral-600 p-3 rounded-2xl shadow-md cursor-pointer"
             type="button" @click="nextPage">Next</button>
     </div>
 </template>

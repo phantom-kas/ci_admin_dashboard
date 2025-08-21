@@ -17,7 +17,7 @@ const formData = ref({
 
 const auth = useAuthStore()
 const router = useRouter()
-const handelSubmit = (e) => {
+const handelSubmit = (e:any) => {
     e.preventDefault();
 
 
