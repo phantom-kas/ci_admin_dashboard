@@ -3,7 +3,7 @@ import trackComponent from '@/components/container/trackComponent.vue';
 import paginationList from '@/components/list/paginationList.vue';
 import { getImageUrl } from '@/composabels/utilities';
 import axios from 'axios';
-import { onMounted } from 'vue';
+import { onMounted, type PropType } from 'vue';
 
 
 defineProps({
@@ -14,6 +14,10 @@ defineProps({
     showDropDown: {
         type: Boolean,
         default: true
+    },
+    params: {
+        type: Object as PropType<{ [key: string]: any } | undefined>,
+        default: undefined
     },
     showPaginationControls: {
         type: Boolean,
@@ -31,6 +35,10 @@ onMounted(() => {
 const cc = ()=>{
     window.alert('1')
 }
+
+
+let listParams = { search: undefined as undefined | string }
+
 </script>
 <template>
     <!-- <div class=" w-full  gap-x-7 tracks gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center">
@@ -40,7 +48,8 @@ const cc = ()=>{
         <trackComponent class=" " /> -->
     <div class="w-full flex flex-col gap-y-6 items-start justify-start">
         <!-- {{ tracks }} -->
-        <paginationList :itemsPerPage @fullList="e => emit('fullList', e)" :showPaginationControls component="div"
+          <!-- {{ params }} -->
+        <paginationList :params :itemsPerPage @fullList="e => emit('fullList', e)" :showPaginationControls component="div"
             class="w-full  gap-x-7 tracks  gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center items-stretch"
             url="/tracks">
             <template #items="{ item, i }">

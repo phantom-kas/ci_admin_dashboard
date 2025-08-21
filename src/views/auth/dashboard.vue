@@ -19,15 +19,21 @@ onMounted(async () => {
     })
     hasLoaded.value = true;
 })
+
+const calCulateChange = (prev: string | number, thisMonth: string | number) => {
+    return ((parseFloat(thisMonth + '') - parseFloat(prev + '')) / parseFloat(prev + '') * 100)
+}
 </script>
 <template>
-    
+
     <div class=" w-full flex flex-col justify-start main">
         <div class="w-full h-full flex-col  flex lg:flex-row justify-start items-center  pt-10 gap-6">
             <template v-if="hasLoaded">
+                <!-- {{ dashBoardData }} -->
                 <!-- {{ (parseInt(dashBoardData.thisMonthData.learners_count + '') - parseInt(dashBoardData.prevMonthData.learners_count + '')) }}
                 {{ dashBoardData.thisMonthData.learners_count }} -->
-                <dashBoardCard :number="dashBoardData.counts.learners_count" class=" self-stretch grow" :change="((parseFloat(dashBoardData.thisMonthData.learners_count + '') - parseFloat(dashBoardData.prevMonthData.learners_count + ''))/ parseFloat(dashBoardData.prevMonthData.learners_count + '') * 100)">
+                <dashBoardCard :number="dashBoardData.counts.learners_count" class=" self-stretch grow"
+                    :change="calCulateChange(dashBoardData.prevMonthData.learners_count, dashBoardData.thisMonthData.learners_count)">
                     <template #icon>
                         <IconPeople :size="65" class=" fill-green-600" />
                     </template>
@@ -36,14 +42,14 @@ onMounted(async () => {
                 <!-- {{ dashBoardData }} -->
                 <dashBoardCard :number="anyCurrency(dashBoardData.counts.income)" class=" self-stretch grow"
                     title="Revenue"
-                    :change="((parseFloat(dashBoardData.thisMonthData.invoice_count + '') - parseFloat(dashBoardData.prevMonthData.invoice_count + ''))/parseFloat(dashBoardData.prevMonthData.invoice_count + '')) * 100">
+                    :change="calCulateChange(dashBoardData.prevMonthData.invoice_count ,dashBoardData.thisMonthData.invoice_count )">
                     <template #icon>
                         <iconDollar />
                     </template>
                 </dashBoardCard>
 
                 <dashBoardCard class=" self-stretch grow" :number="dashBoardData.counts.invoice_count" title="Invoice"
-                    :change="((parseFloat(dashBoardData.thisMonthData.invoice_count + '') - parseFloat(dashBoardData.prevMonthData.invoice_count + ''))/parseFloat(dashBoardData.prevMonthData.invoice_count + '')) * 100">
+                    :change="calCulateChange(dashBoardData.prevMonthData.invoice_count,dashBoardData.thisMonthData.invoice_count)">
                     <template #icon>
                         <IconFiles :size="65" class=" fill-green-600" />
                     </template>
@@ -65,12 +71,12 @@ onMounted(async () => {
                 <h3 class="title1   border-b-2 border-b-white2 dark:border-b-[#7F7E83] p-4 pl-0">
                     Recent Revenue
                 </h3>
-                <chat :data="dashBoardData.revenueChartData"  class=" grow" />
+                <chat :data="dashBoardData.revenueChartData" class=" grow" />
             </div>
 
             <div class=" flex flex-col gap-y-4 mt-6 w-min495">
                 <h3 class="title1   border-b-2 border-b-[#E5E5EF] dark:border-b-[#7F7E83] p-4 pl-0">
-                    Tracks 
+                    Tracks
                 </h3>
                 <latestInvaoice class=" w-full p-6" />
             </div>

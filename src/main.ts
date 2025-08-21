@@ -15,7 +15,7 @@ import {
     
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot, faChartColumn } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
@@ -43,6 +43,7 @@ faPhone,
     faArrowsUpToLine,
     faPlus,
     faCalendar,
+    faChartColumn,
     faMagnifyingGlass,
     faDesktop,
     faDesktopAlt,
@@ -64,3 +65,5 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+

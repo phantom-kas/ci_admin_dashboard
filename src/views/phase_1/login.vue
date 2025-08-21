@@ -17,19 +17,19 @@ const formData = ref({
 
 const auth = useAuthStore()
 const router = useRouter()
-const handelSubmit = () => {
-// e.preventDefault();
+const handelSubmit = (e) => {
+    e.preventDefault();
 
 
     loading.value = true
     formData.value.validate = true
-    auth.login(formData.value.email,formData.value.password)
-    .finally(()=>loading.value = false)
-    .then((res) => {
-        if(res.data.status !='success')return
+    auth.login(formData.value.email, formData.value.password)
+        .finally(() => loading.value = false)
+        .then((res) => {
+            if (res.data.status != 'success') return
 
-        router.push({name:'dashboard'})
-    })
+            router.push({ name: 'dashboard' })
+        })
 }
 
 
@@ -43,14 +43,14 @@ onMounted(() => {
 })
 
 const form = ref(null as null | HTMLFormElement)
-const handelbtnClick=()=>{
+const handelbtnClick = () => {
     formData.value.validate = true
     form.value?.requestSubmit()
 }
 </script>
 <template>
-    <form ref="form" :key="formData.validate ? '1' : '2'" class="flex flex-col justify-start items-start w-full validate"
-        @submit.prevent="handelSubmit()">
+    <form ref="form" :key="formData.validate ? '1' : '2'"
+        class="flex flex-col justify-start items-start w-full validate" @submit.prevent="handelSubmit">
         <Input required type="email" :data="formData" name="email" label="Email" class=" w-full mb-6" />
         <Input required :data="formData" type="password" name="password" label="Password" class=" w-full" />
         <router-link :to="{ name: 'change_password' }" class=' text-blue font-[400] cursor-pointer mt-3 mb-3'>Forgot

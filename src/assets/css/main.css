@@ -49,6 +49,8 @@
 
     --container-min495: min(495px, 100%);
     --container-max300: min(300px, 100%);
+    --container-max600: min(600px, 100%);
+    --container-max400: min(400px, 100%);
     --container-max200: min(200px, 100%);
     --container-max100: min(100px, 100%);
     --container-max150: min(150px, 100%);
@@ -77,9 +79,10 @@
     @apply dark:border-gray-600 dark:border text-white1 bg-black
 }
 
-.ql-editor{
-   @apply border-t-neutral-950! border-t! p-0 min-h-15 pt-3
+.ql-editor {
+    @apply border-t-neutral-950! border-t! p-0 min-h-15 pt-3
 }
+
 .ql-container.ql-snow,
 .ql-toolbar.ql-snow {
     @apply border-none

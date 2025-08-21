@@ -10,6 +10,7 @@ import { ref } from 'vue';
 import confrimComponent from '@/components/confrimComponent.vue';
 import axios from 'axios';
 import image_picker from '@/components/form_components/image_picker.vue';
+import { debounce } from '@/composabels/utilities';
 const route = useRoute()
 const router = useRouter()
 const showConfirm = ref(false)
@@ -45,7 +46,7 @@ const handelImageUpdate = (file: any) => {
     return axios.put('/track/image/' + route.params.id, { file }, {
         headers: {
             'Content-Type': 'multipart/form-data',
-        },_showAllMessages:true,_load:true
+        }, _showAllMessages: true, _load: true
     }).then(res => {
         if (res.data.status != 'success') return
 
@@ -73,11 +74,24 @@ const handelEdit = (e: any) => {
     console.log(tracks.value[track.value.i])
     router.go(-1)
 }
+
+
+const listKey = ref(0)
+let listParams = { search: undefined as undefined | string }
+const searchFn = debounce((e: string) => {
+
+    console.log(e[0])
+    listParams = { search: e }
+    listKey.value += 1
+}, 500);
 </script>
 <template>
     <div class="flex flex-col justify-start items-center gap-y-6 w-full pt-10 ">
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input />
+            <!-- <search_input @input="e => searchFn(e.value)" /> -->
+            <search_input @input="e => searchFn(e)" />
+            <!-- <search_input @input="e => searchFn(e)" /> -->
+
             <router-link :to="{ name: 'add-track' }">
                 <buttonLoads type="button" class="sm:w-[200px]">
                     <template #label>
@@ -91,7 +105,9 @@ const handelEdit = (e: any) => {
         </form>
         <!-- {{tracks}} -->
         <!-- {{ track }} -->
-        <alltracks  @edit="e => { track = e; router.push({ name: 'edit-track', params: { id: e.id } }) }"
+        <!-- {{ listParams }} -->
+        <alltracks :params="listParams" :key="listKey"
+            @edit="e => { track = e; router.push({ name: 'edit-track', params: { id: e.id } }) }"
             @editImage="e => { track = e; router.push({ name: 'edit-track-image', params: { id: e.id } }) }"
             @delete="e => { track = e; showConfirm = true }" @fullList="e => tracks = e" class=" w-full" />
     </div>

@@ -14,6 +14,8 @@ import { useThemeStore } from '@/stores/theme';
 import overlayfixed from '../overlayfixed.vue';
 import { useAuthStore } from '@/stores/auth';
 import { getImageUrl } from '@/composabels/utilities';
+import IconSun from '../icons/IconSun.vue';
+import IconMoon from '../icons/IconMoon.vue';
 const theme = useThemeStore()
 const darkModelOpen = ref(false)
 const isOpen = ref(true)
@@ -27,60 +29,66 @@ const user = useAuthStore()
         class=" flex flex-col h-screen w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov">
         <Header :class="[{ 'sm:py-9 mb-4 dark:bg-neutral-800': isOpen }, { 'dark:bg-black': !isOpen }]"
             @toggleOpen="handelToggle()" class="bg-white   rounded-lg sm:px-5  sm:mb-6 " />
-            <Teleport to="#modal" defer>
-                <overlayfixed :class="[{' hidden':!isOpen},{'block':isOpen}]" @click="handelToggle()" class="z-20 sm:hidden "/>
-            </Teleport>
+        <Teleport to="#modal" defer>
+            <overlayfixed :class="[{ ' hidden': !isOpen }, { 'block': isOpen }]" @click="handelToggle()"
+                class="z-20 sm:hidden " />
+        </Teleport>
         <div v-show="isOpen" class="w-full flex h-full flex-col duration-150 transition-transform z-70">
-            <sideBarLink :to="{name:'dashboard'}" text="Dashboard" />
-            <sideBarLink :to="{name:'invoices'}" text="Invoice">
+            <sideBarLink :to="{ name: 'dashboard' }" text="Dashboard" />
+            <sideBarLink :to="{ name: 'invoices' }" text="Invoice">
                 <template #icon="{ iconClass }">
                     <IconFile :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink :to="{name:'users',params:{type:'learners'}}" text="Learners">
+            <sideBarLink :to="{ name: 'users', params: { type: 'learners' } }" text="Learners">
                 <template #icon="{ iconClass }">
                     <IconPeople :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-             <sideBarLink :to="{name:'users',params:{type:'admins'}}" text="Admins">
+            <sideBarLink :to="{ name: 'users', params: { type: 'admins' } }" text="Admins">
                 <template #icon="{ iconClass }">
                     <IconPeople :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink :to="{name:'tracks'}" text="Tracks">
+            <sideBarLink :to="{ name: 'tracks' }" text="Tracks">
                 <template #icon="{ iconClass }">
                     <IconGraduate :class="iconClass" class="" />
                 </template>
             </sideBarLink>
-            <sideBarLink text="Courses" :to="{name:'courses'}">
+            <sideBarLink text="Courses" :to="{ name: 'courses' }">
                 <template #icon="{ iconClass }">
                     <IconGraduate :class="iconClass" class="" />
                 </template>
             </sideBarLink>
 
-            <sideBarLink text="Report" />
+            <sideBarLink :to="{name:'reports'}" text="Report" />
             <!-- <sideBarLink text="Settings">
                 <template #icon="{ iconClass }">
                     <IconGears :class="iconClass" class="" />
                 </template>
             </sideBarLink> -->
             <themeSelect v-model="darkModelOpen" @click="darkModelOpen = !darkModelOpen">
-               <template #menubutton>
-                 <sideBarLink text="Theme" :isLink="false">
-                    <template #icon="{ iconClass }">
-                        <!-- <IconGears :class="iconClass" class="" /> -->
-
-                         <FontAwesomeIcon v-if="theme.value == 'light'" size="xl" :icon="['far','sun']"/>
-                         <FontAwesomeIcon v-else-if="theme.value == 'dark'" size="xl" :icon="['fas', 'moon']"/>
-                         <FontAwesomeIcon v-else="theme.value == 'dark'" size="xl" :icon="['fas', 'desktop-alt']"/>
-                    </template>
-                </sideBarLink>
-               </template>
+                <template #menubutton>
+                    <sideBarLink class=" gap-1" text="Theme" :isLink="false">
+                        <template #icon="{ iconClass }">
+                            <!-- <IconGears :class="iconClass" class="" /> -->
+                            <IconMoon v-if="theme.value == 'light'" />
+                            <!-- <FontAwesomeIcon v-if="theme.value == 'light'" size="xl" :icon="['far','sun']"/> -->
+                            <IconSun v-else-if="theme.value == 'dark'" />
+                            <!-- <FontAwesomeIcon v-else-if="theme.value == 'dark'" size="xl" :icon="['fas', 'moon']"/> -->
+                            <FontAwesomeIcon v-else="theme.value == 'dark'" size="lg" :icon="['fas', 'desktop-alt']" />
+                        </template>
+                    </sideBarLink>
+                </template>
             </themeSelect>
             <!-- <dropdown /> -->
-            <router-link :to="{name:'profile-info'}" class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
+            <router-link :to="{ name: 'profile-info' }"
+                class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
                 <avatar1 :src="getImageUrl(user.userInfo.image)" class=" text-white1 text-[15px]" />
-                <IconLogOut @click.prevent.stop="" />
+                <div  @click.prevent.stop="user.logout()" class=" flex items-center justify-center p-3  hover:bg-BlueLightest hover:text-black rounded-2xl">
+
+                    <IconLogOut class=" " />
+                </div>
             </router-link>
         </div>
     </div>

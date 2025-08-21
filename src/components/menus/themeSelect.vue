@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useThemeStore } from '@/stores/theme'
 import type { OnClickOutsideHandler } from '@vueuse/core'
+import IconSun from '../icons/IconSun.vue'
 
 const open = ref(false)
 const theme = useThemeStore()
@@ -26,22 +27,17 @@ const currentLabel = computed(() => {
 //     style: {}
 // })
 
-const applyTheme = (mode: string) => {
-    const root = document.documentElement
-    if (mode === 'dark') root.classList.add('dark')
-    else if (mode === 'light') root.classList.remove('dark')
-    else root.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches)
-}
+
 
 const setTheme = (mode: string) => {
     theme.value = mode
-    applyTheme(mode)
+    theme.applyTheme(mode)
 }
 
 const initTheme = () => {
     // const saved = localStorage.getItem('theme') || 'system'
     // theme.value = saved
-    applyTheme(theme.value)
+    theme.applyTheme(theme.value)
 }
 
 // const startRippleTransition = (mode, event) => {
@@ -101,7 +97,7 @@ const handleClickOutside = (e: any) => {
 }
 
 const handleSystemThemeChange = () => {
-    if (theme.value === 'system') applyTheme('system')
+    if (theme.value === 'system') theme.applyTheme('system')
 }
 
 onMounted(() => {
@@ -136,9 +132,10 @@ onUnmounted(() => {
         ]">
             <ul>
                 <li v-for="option in options" :key="option.value" @click="(e) => setTheme(option.value)"
-                    class="px-4 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-900 flex text-[13px]">
-                    <span class=" w-6">
-                        <FontAwesomeIcon :icon="option.icon" />
+                    class="px-4 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-900 flex text-[13px] items-center">
+                    <span class=" w-6 mr-2 flex items-center justify-center">
+                        <IconSun v-if="option.value == 'light'"/>
+                        <FontAwesomeIcon v-else :icon="option.icon" />
                     </span>
                     {{ option.label }}
                 </li>

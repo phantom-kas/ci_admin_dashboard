@@ -49,9 +49,9 @@ onMounted(() => {
                     <div>
                         <rating :rating="item.rating" />
                     </div>
-                    <div v-html="item.review"></div>
-                    <div class=" flex justify-end">
-                        <span>{{ item.created_at }}</span>
+                    <div class=" my-1 text-lg" v-html="item.review"></div>
+                    <div class=" flex justify-end w-full ">
+                        <span>{{  item.created_at }}</span>
                     </div>
                 </div>
             </template>

@@ -84,13 +84,13 @@ const searchFn = debounce((e: string) => {
                 </Avatar1>
             </template>
 
-            <template #amount="{ item, i }">
+            <template #amount="{ item}">
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
-            <template #paid="{ item, i }">
+            <template #paid="{ item}">
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
-            <template #status="{ item, i }">
+            <template #status="{ item }">
 
 
                 <Dropdown v-if="item == 'pending'" :options="[

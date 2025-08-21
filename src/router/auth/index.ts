@@ -148,6 +148,16 @@ export default [
             },
         ]
     },
+       {
+                name: 'reports',
+                path: '/reports',
+                // alias: '/',
+                component: () => import('../../views/auth/report/index.vue'),
+                props: (route: { params: { id: string } }) => ({
+                    mode: 'edit',
+                    id: route.params.id
+                })
+            },
 ]
 
 

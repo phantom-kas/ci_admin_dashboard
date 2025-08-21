@@ -13,12 +13,12 @@ const props = defineProps({
 </script>
 <template>
 
-    <tabelList beark-point="710px" class=" mt-2" :listMapper="[
+    <tabelList :params="{id}" beark-point="710px" class=" mt-2" :listMapper="[
         { key: '_allItems', title: 'User', slotName: 'cc' },
         { key: 'created_at', title: 'Date Enrolled', slotName: 'amt' },
         { key: 'amount', title: 'Paid' },
         { key: 'status', title: 'Status' },
-    ]" url="track-learners">
+    ]" :url="'track-learners/'+id">
         <template #amount="{ item, i }">
             <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
         </template>

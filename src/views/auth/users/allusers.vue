@@ -14,6 +14,7 @@ import axios from 'axios';
 import image_picker from '@/components/form_components/image_picker.vue';
 import UserCard from '@/components/cards/userCard.vue';
 import confrimComponent from '@/components/confrimComponent.vue';
+import { debounce } from '../../../composabels/utilities';
 const showConfirm = ref(false)
 
 const router = useRouter()
@@ -114,16 +115,24 @@ const getSingleUser = async (id: string) => {
 }
 
 let selected = { id:'', i:0 }
-let pl =[]
+let pl: any[] =[]
 
 // const em = (e)=>window.alert(e.length)/
+const listKey = ref(0)
+let listParams = { search: undefined as undefined | string }
+const searchFn = debounce((e: string) => {
+
+    // console.log(...e)
+    listParams = { search: e }
+    listKey.value += 1
+}, 500);
 </script>
 <template>
     <div class="w-full flex flex-col gap-y-4 pt-10 ">
         <!-- {{ courses }} -->
         <!-- <buttonLoads @click="pp" type="button" class="sm:w-[200px]"></buttonLoads> -->
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input />
+            <search_input @input="e=>searchFn(e)"/>
             <router-link :to="{ name: 'add-user' }">
                 <buttonLoads type="button" class="sm:w-[200px]">
                     <template #label>
@@ -135,7 +144,7 @@ let pl =[]
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList @paginationList="e=>{pl=e,em(e)}" beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
+        <tabelList :key="listKey" :params="{type:type == 'learners'?'learners':'admins',...listParams}" @paginationList="e=>{pl=e,em(e)}" beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
             @full-list="e => users = e" :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
                 { key: 'email', title: 'Email address' },

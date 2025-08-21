@@ -19,6 +19,7 @@ const imageUrl = ref('')
 const formData = ref({
     firstName: '',
     lastName: '',
+    // disability: '',
     email: 0,
     password: '',
     location: '',
@@ -27,7 +28,7 @@ const formData = ref({
     gender: '',
     file: '' as any,
     description: '',
-});
+} as { [key: string]: any });
 const handelImageChange = (e: any) => { image.value = e, showImagePicker.value = false; imageUrl.value = URL.createObjectURL(e.img); console.log(e.img) }
 const emit = defineEmits(['close', 'success', 'editsuccess'])
 const loading = ref(false)
@@ -74,13 +75,14 @@ const handelEdit = async () => {
         lastName: formData.value['lastName'],
         description: formData.value['description'],
         phone: formData.value['phone'],
+        disability: formData.value['disability'],
         location: formData.value['location'],
         gender: formData.value['gender'],
     }, { _showAllMessages: true })
         .finally(() => loading.value = false)
         .then(res => {
             if (res.data.status != 'success') return
-            
+
             emit('editsuccess', {
                 id: id.value,
                 ...formData.value,
@@ -153,6 +155,12 @@ const route = useRoute()
         <select_input placeholder="Select your gender"
             :options="[{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]" :data="formData"
             class=" w-full" name="gender" label="Gender" />
+
+        <select_input v-if="id" placeholder="PWA" :options="[
+            { value: 'none', label: 'none' },
+            { value: 'hearing', label: 'hearing' },
+            { value: 'vision', label: 'vision' },
+        ]" :data="formData" class=" w-full" name="disability" label="PWA" />
 
         <Input v-if="!id" :data="formData" class=" w-full" name="email" type="email" label="Email" />
         <Input :data="formData" class=" w-full" name="phone" label="Phone" />

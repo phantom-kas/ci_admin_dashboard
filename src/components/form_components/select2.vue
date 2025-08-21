@@ -63,14 +63,17 @@ const checkValid = (e: string | number) => {
 onMounted(() => {
     checkValid(vall.value)
 })
+
+
+const emits = defineEmits(['inputed'])
 </script>
 
 <template>
-    <div class="relative w-[460px] theme1cont flex items-center pl-2 gap-x-3 not-darkmode:bg-[#F5F5F5]!">
+    <div class="relative w-[460px] theme1cont flex items-center pl-2 gap-x-3 not-dark:bg-[#F5F5F5]!">
         <slot>
             <FontAwesomeIcon size="lg" :icon />
         </slot>
-        <select :id="name" v-model="vData[name]" :required="required" @blur="checkValid(vData[name])"
+        <select @input="e=>emits('inputed', { name: name, value: (e.target as HTMLSelectElement)?.value })" :id="name" v-model="vData[name]" :required="required" @blur="checkValid(vData[name])"
             class="peer w-full px-4 pt-5 pb-2   placeholder-transparent rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             <option class=" theme1cont" disabled value="">{{ placeholder || 'Select...' }}</option>
             <option class=" theme1cont" v-for="opt in options" :key="opt.value" :value="opt.value">

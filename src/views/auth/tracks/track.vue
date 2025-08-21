@@ -12,6 +12,7 @@ import confrimComponent from '@/components/confrimComponent.vue';
 import image_picker from '@/components/form_components/image_picker.vue';
 import avatar1 from '@/components/avatars/avatar1.vue';
 import closeRow from '@/components/container/closeRow.vue';
+import rating from '@/components/rating.vue';
 const props = defineProps({
     id: {
         type: String
@@ -21,6 +22,7 @@ const props = defineProps({
 
 const track = ref({} as { [key: string]: string | number })
 const courses = ref([] as any[])
+const dispalyRatingData = ref(null as number | null)
 const hasLoaded = ref(false)
 onMounted(() => {
     axios.get('/track-courses/' + props.id).then(res => {
@@ -28,6 +30,8 @@ onMounted(() => {
 
         courses.value = res.data.data.courses
         track.value = res.data.data.track[0]
+    dispalyRatingData.value = parseInt(track.value.total_ratings + '') / parseInt(track.value.num_rating + '')
+
 
         setTimeout(() => {
 
@@ -44,14 +48,10 @@ const showConfirm = ref(false)
 const handelDelete = () => {
     axios.delete('/track/' + track.value.id, { _showAllMessages: true }).finally(() => { }).then(res => {
         if (res.data.status != 'success') return
-
         showConfirm.value = false
         console.log(track.value)
 
         router.go(-1)
-        // console.log(tracks.value)
-        // console.log(tracks)
-        // tracks.value.splice(track.value.i, 1)
     })
 }
 const showImagePicker = ref(false)
@@ -81,25 +81,12 @@ const handelImageChange = async (e: any) => {
 const key = ref(0)
 const handelEdit = (e: any) => {
     console.log(track.value)
-    // track.value = {
-    //     id: track.value.id,
-    //     price: e.price,
-    //     name: e.name,
-    //     image: track.value.url,
-    //     duration: e.duration,
-    //     courses: track.value.courses,
-    //     num_courses: track.value.num_courses,
-    //     Instructor: e.Instructor,
-    //     created_at: 'Just Now',
-    // }
     track.value.Instructor = e.Instructor
     track.value.duration = e.duration
     track.value.description = e.description
     track.value.name = e.name
     track.value.price = e.price
     key.value = key.value++
-    // window.alert('e')
-    // console.log(tracks.value[track.value.i])
     router.go(-1)
 }
 </script>
@@ -161,7 +148,7 @@ const handelEdit = (e: any) => {
                         </span>
                     </div>
                     <div class=" ml-auto">
-                        Ratings
+                        <rating v-if="dispalyRatingData" :rating="dispalyRatingData" />
                     </div>
                 </div>
                 <div v-html="track.description" class=" w-full text-sm">
@@ -190,20 +177,13 @@ const handelEdit = (e: any) => {
                     <avatar1 :src="getImageUrl(item.image)"><template #name>{{ item.title }}</template></avatar1>
                 </div>
             </transition-group>
-
         </div>
         <image_picker v-else :aspectRatio="1.422" @crop="(e: any) => handelImageChange(e)" class="z-[1000] my-auto" />
-
     </screen2>
     <confrimComponent @ok="handelDelete" v-if="showConfirm" @close="showConfirm = false" />
 </template>
 <style scoped>
-/* .trackwdith{
-        width: min(742px);
-    } */
 @reference "../../../assets/css/main.css";
-
-
 a.router-link-exact-active {
     @apply rounded-t not-dark:border-x-black not-dark:border-t-black border-x border-t dark:border-t-white3 dark:border-x-white3 -mb-px mr-1
 }

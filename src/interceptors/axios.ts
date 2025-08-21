@@ -165,11 +165,12 @@ axios.interceptors.response.use(
       const router1 = router;
       router1.push({ name: "login" });
       return;
-    } else if (error.response.status == 403) {
-      const router1 = router;
-      router1.push({ name: "dashboard" });
-      return;
     }
+    //  else if (error.response.status == 403) {
+    //   const router1 = router;
+    //   router1.push({ name: "dashboard" });
+    //   return;
+    // }
     c = 0;
     return Promise.reject(error);
   }

@@ -12,6 +12,7 @@ import { debounce, getImageUrl } from '@/composabels/utilities';
 import dropdown from '@/components/menus/dropdown.vue';
 import axios from 'axios';
 import image_picker from '@/components/form_components/image_picker.vue';
+import IconSun from '@/components/icons/IconSun.vue';
 const router = useRouter()
 const route = useRoute()
 let courses = ref([] as any[])
@@ -82,8 +83,8 @@ const listKey = ref(0)
 let listParams = { search: undefined as undefined | string }
 const searchFn = debounce((e: string) => {
 
+    // console.log(...e)
     listParams = { search: e }
-    console.log(e)
     listKey.value += 1
 }, 500);
 </script>
@@ -104,6 +105,8 @@ const searchFn = debounce((e: string) => {
                 </buttonLoads>
             </router-link>
         </form>
+        <!-- {{ listParams }} -->
+         
         <tabelList :params="listParams" :key="listKey" class=" mt-2" @clicked="cc" action-col @full-list="e => courses = e" :listMapper="[
             { key: '_allItems', title: 'Courses', slotName: 'cc' },
             { key: 'trackName', title: 'Track' },

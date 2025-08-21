@@ -95,7 +95,7 @@ onMounted(() => {
 })
 </script>
 <template>
-    <div class="relative  theme1cont flex items-center pl-2 gap-x-3 not-darkmode:bg-[#F5F5F5]!">
+    <div class="relative  theme1cont flex items-center pl-2 gap-x-3 not-dark:bg-[#F5F5F5]!">
         <slot>
             <FontAwesomeIcon size="lg" :icon />
         </slot>

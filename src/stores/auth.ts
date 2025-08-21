@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("useAuthStore", () => {
   const getRToken = ref(useLocalStorage("rtoken", ""));
@@ -33,7 +34,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
     if (mime) return new Blob([arrayBuffer], { type: mime });
   };
 
-  const SetTokens = (Rtoken: string, AToken: string | null) => {
+  const SetTokens = (Rtoken: string | null, AToken: string | null) => {
     getRToken.value = Rtoken;
     getAToken.value = AToken;
   };
@@ -68,20 +69,37 @@ export const useAuthStore = defineStore("useAuthStore", () => {
   };
 
 
-  const login = (email: string, password: string) => {
+  const login = async (email: string, password: string) => {
     return axios.post('/login', { email, password }, { _load: true, _showAllMessages: true }).then(res => {
-      if (res.data.status != 'success') return res
+      ;
+      // window.alert('res.data.status');
+      console.log(res)
+      // window.alert(res.data.status);
+      // window.alert('res.data.status');
+      if (res.data.status != 'success') { return res; }
       console.log(res.data.data);
       setUserInfo({ ...res.data.data, refreshToken: undefined, accessToken: undefined });
-      SetTokens(res.data.data.refreshToken, res.data.data.accessToken);
-      return res
+      SetTokens(null, res.data.data.accessToken);
+      return res;
     })
   }
+  const router = useRouter()
+  const logout = () => {
 
+    axios.post('logout', {
+      refreshToken: getRToken.value,
+    }).then(res => {
+      if (res.data.status != 'success') return
+      SetTokens(null, null);
+      axios.defaults.headers.common["Authorization"] = ''
+      router.push({ name: 'login' })
+    })
+  }
   return {
     getRole,
     login,
     isAdmin,
+    logout,
     img_version,
     updateImgVersion,
     userInfo,
