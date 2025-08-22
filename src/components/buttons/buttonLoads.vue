@@ -11,16 +11,16 @@ defineProps({
         default: false
     },
     classes: {
-        default: 'bg-blue text-white1 ',
+        default: 'not-dark:bg-blue dark:bg-neutral-800 text-white1 ',
         type: String
     },
     disabeldClass: {
-        default: ' disabled:bg-blue-600',
+        default: ' not-dark:disabled:bg-blue-600 dark:disabled:bg-blue-800',
         type: String
     }
     ,
     hoverClass: {
-        default: ' hover:bg-blue-400 , active:bg-blue-700',
+        default: ' not-dark:hover:bg-blue-400 dark:hover:bg-blue-950  not-dark:active:bg-blue-700',
         type: String
     }
 })

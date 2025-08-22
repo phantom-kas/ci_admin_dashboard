@@ -13,7 +13,7 @@ defineProps({
 })
 </script>
 <template>
-    <buttonLoads class="bg-blue text-white1  disabled:bg-blue-300 hover:bg-blue-400 , active:bg-blue-700" :label
+    <buttonLoads class=" not-dark:bg-blue dark:bg-gray-900 text-white1 dark:disabled:bg-blue-950  not-dark:disabled:bg-blue-300 hover:bg-blue-400 , active:bg-blue-700" :label
         :isLoad>
         
         <slot name="label">

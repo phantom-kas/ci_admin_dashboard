@@ -10,8 +10,11 @@ import { isDev } from "@/composabels/utilities";
 
 if (isDev()) {
   axios.defaults.baseURL = "http://localhost:5000/api/";
+  // axios.defaults.baseURL = "https://gc-rest-api.onrender.com/api/";
 } else {
-  axios.defaults.baseURL = "https://ci-rest-api.onrender.com/api/"
+ 
+  axios.defaults.baseURL = "https://gc-rest-api.onrender.com/api/";
+
 }
 const axiosApiInstance = axios.create();
 

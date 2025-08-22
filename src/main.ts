@@ -15,7 +15,7 @@ import {
     faClockFour
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot, faChartColumn } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown,faFilePen, faPencilAlt, faEllipsis, faTrashCan, faCircleXmark, faTrash, faArrowsUpToLine, faFileArrowUp, faPlus, faMagnifyingGlass, faBars, faTriangleExclamation, faCircleInfo, faXmark, faMoon, faDesktopAlt, faDesktop, faSun, faCheck, faLock, faPerson, faPhone, faMapPin, faLocationDot, faChartColumn, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 import router from './router'
 import "./interceptors/axios";
@@ -33,6 +33,7 @@ faLocationDot,
 faPhone,
     faClock,
     faCheck,
+    faSpinner,
     faEllipsis,
     faTrashCan,
     faPencilAlt,
