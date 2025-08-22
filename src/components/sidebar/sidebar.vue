@@ -32,7 +32,7 @@ onBeforeRouteUpdate(()=>{
 </script>
 <template>
     <div :class="[{ 'open': isOpen }, { ' closed max-sm:border-none!': !isOpen }, { '': isOpen }]"
-        class="h-dvh  flex flex-col w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov bg-blue  dark:bg-black dark:border-neutral-900 dark:border-r">
+        class="h-dvh flex flex-col w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov bg-blue  dark:bg-black dark:border-neutral-900 dark:border-r">
         <Header :class="[{ ' ': isOpen }, { ' max-sm:dark:bg-black! max-sm:py-0 max-sm:mb-0': !isOpen }]"
             @toggleOpen="handelToggle()" class="bg-white rounded-lg sm:px-5  sm:mb-6 dark:bg-neutral-800 sm:py-9 mb-4" />
         <Teleport to="#modal" defer>
