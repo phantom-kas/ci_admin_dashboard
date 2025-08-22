@@ -91,7 +91,7 @@ onBeforeRouteUpdate(()=>{
             
         </div>
         <router-link :to="{ name: 'profile-info' }"
-                class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
+                class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white text-white">
                 <avatar1 :src="getImageUrl(user.userInfo.image)" class=" text-white1 text-[15px]" />
                 <div  @click.prevent.stop="user.logout()" class=" flex items-center justify-center p-3  hover:bg-BlueLightest hover:text-black rounded-2xl">
 

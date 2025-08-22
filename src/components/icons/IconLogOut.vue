@@ -6,7 +6,7 @@
         <g >
             <path d="M14.9991 12H3.61914" stroke="currentColor"  stroke-width="1.5" stroke-linecap="round"
                 stroke-linejoin="round" />
-            <path d="M5.85 8.65039L2.5 12.0004L5.85 15.3504"  stroke-width="1.5" stroke-linecap="round"
+            <path stroke="currentColor" d="M5.85 8.65039L2.5 12.0004L5.85 15.3504"  stroke-width="1.5" stroke-linecap="round"
                 stroke-linejoin="round" />
         </g>
     </svg>
