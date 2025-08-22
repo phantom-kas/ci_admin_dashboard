@@ -123,7 +123,7 @@ onBeforeRouteUpdate(() => {
     /* height: unset; */
 
     /* width: 180px; */
-    @apply max-sm:w-[180px] ! max-sm:h-[unset]
+    @apply max-sm:w-[180px]! max-sm:h-[unset]
     /* width: unset; */
 }
 </style>
