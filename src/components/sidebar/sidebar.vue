@@ -26,20 +26,22 @@ const handelToggle = () => {
 }
 const user = useAuthStore()
 
-onBeforeRouteUpdate(()=>{
-    isOpen.value = false 
+onBeforeRouteUpdate(() => {
+    isOpen.value = false
 })
 </script>
 <template>
     <div :class="[{ 'open': isOpen }, { ' closed max-sm:border-none!': !isOpen }, { '': isOpen }]"
         class="h-dvh flex flex-col w-sidebar300 rounded-br-lg rounded-tr-lg p-2 text-[16px]  top-0  z-20 ofov bg-blue  dark:bg-black dark:border-neutral-900 dark:border-r">
         <Header :class="[{ ' ': isOpen }, { ' max-sm:dark:bg-black! max-sm:py-0 max-sm:mb-0': !isOpen }]"
-            @toggleOpen="handelToggle()" class="bg-white rounded-lg sm:px-5  sm:mb-6 dark:bg-neutral-800 sm:py-9 mb-4" />
+            @toggleOpen="handelToggle()"
+            class="bg-white rounded-lg sm:px-5  sm:mb-6 dark:bg-neutral-800 sm:py-9 mb-4" />
         <Teleport to="#modal" defer>
             <overlayfixed :class="[{ ' max-sm:hidden': !isOpen }, { 'max-sm:block': isOpen }]" @click="handelToggle()"
                 class="z-20 sm:hidden " />
         </Teleport>
-        <div  :class="{' max-sm:hidden!':!isOpen}" class="w-full flex  flex-col duration-150 transition-transform z-70">
+        <div :class="{ ' max-sm:hidden!': !isOpen }"
+            class="w-full flex  flex-col duration-150 transition-transform z-70 flex-grow">
             <sideBarLink :to="{ name: 'dashboard' }" text="Dashboard" />
             <sideBarLink :to="{ name: 'invoices' }" text="Invoice">
                 <template #icon="{ iconClass }">
@@ -67,7 +69,7 @@ onBeforeRouteUpdate(()=>{
                 </template>
             </sideBarLink>
 
-            <sideBarLink :to="{name:'reports'}" text="Report" />
+            <sideBarLink :to="{ name: 'reports' }" text="Report" />
             <!-- <sideBarLink text="Settings">
                 <template #icon="{ iconClass }">
                     <IconGears :class="iconClass" class="" />
@@ -88,20 +90,22 @@ onBeforeRouteUpdate(()=>{
                 </template>
             </themeSelect>
             <!-- <dropdown /> -->
-            
-        </div>
-        <router-link :to="{ name: 'profile-info' }"
+            <router-link :to="{ name: 'profile-info' }"
                 class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white text-white">
                 <avatar1 :src="getImageUrl(user.userInfo.image)" class=" text-white1 text-[15px]" />
-                <div  @click.prevent.stop="user.logout()" class=" flex items-center justify-center p-3  hover:bg-BlueLightest hover:text-black rounded-2xl">
+                <div @click.prevent.stop="user.logout()"
+                    class=" flex items-center justify-center p-3  hover:bg-BlueLightest hover:text-black rounded-2xl">
 
                     <IconLogOut class=" " />
                 </div>
             </router-link>
+        </div>
+
     </div>
 </template>
 <style scoped>
 @reference "../../assets/css/main.css";
+
 .ofov {
     overflow: scroll;
     overflow: overlay;
@@ -112,14 +116,14 @@ onBeforeRouteUpdate(()=>{
     /* height: 100dvh; */
     /* width: min(300px, calc(100% - 2rem)); */
 
-    
+
 }
 
 .closed {
     /* height: unset; */
 
     /* width: 180px; */
-    @apply max-sm:w-[180px]!  max-sm:h-[unset]
+    @apply max-sm:w-[180px] ! max-sm:h-[unset]
     /* width: unset; */
 }
 </style>
