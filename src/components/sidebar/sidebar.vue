@@ -39,7 +39,7 @@ onBeforeRouteUpdate(()=>{
             <overlayfixed :class="[{ ' max-sm:hidden': !isOpen }, { 'max-sm:block': isOpen }]" @click="handelToggle()"
                 class="z-20 sm:hidden " />
         </Teleport>
-        <div  :class="{' max-sm:hidden!':!isOpen}" class="w-full flex h-full flex-col duration-150 transition-transform z-70">
+        <div  :class="{' max-sm:hidden!':!isOpen}" class="w-full flex  flex-col duration-150 transition-transform z-70">
             <sideBarLink :to="{ name: 'dashboard' }" text="Dashboard" />
             <sideBarLink :to="{ name: 'invoices' }" text="Invoice">
                 <template #icon="{ iconClass }">
@@ -88,7 +88,9 @@ onBeforeRouteUpdate(()=>{
                 </template>
             </themeSelect>
             <!-- <dropdown /> -->
-            <router-link :to="{ name: 'profile-info' }"
+            
+        </div>
+        <router-link :to="{ name: 'profile-info' }"
                 class=" flex flex-row justify-between mt-auto items-center p-3  fill-none stroke-white">
                 <avatar1 :src="getImageUrl(user.userInfo.image)" class=" text-white1 text-[15px]" />
                 <div  @click.prevent.stop="user.logout()" class=" flex items-center justify-center p-3  hover:bg-BlueLightest hover:text-black rounded-2xl">
@@ -96,7 +98,6 @@ onBeforeRouteUpdate(()=>{
                     <IconLogOut class=" " />
                 </div>
             </router-link>
-        </div>
     </div>
 </template>
 <style scoped>
