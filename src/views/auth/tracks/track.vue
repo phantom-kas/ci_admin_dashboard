@@ -97,7 +97,7 @@ const handelEdit = (e: any) => {
             <h1 :key="key" class=" text-[40px] font-[600] text-4xl">{{ track.name }}</h1>
 
         </div>
-        <ul class="flex border-b dark:border-b-white w-full mb-4">
+        <ul class="flex border-b dark:border-b-white w-full mb-4 max-sm:text-[10px]">
             <li class="">
                 <router-link :to="{ name: 'track', params: { id } }"
                     class="dark:bg-black not-dark:bg-white inline-block py-2 px-4  ">
@@ -120,8 +120,8 @@ const handelEdit = (e: any) => {
                     { icon: ['far', 'trash-can'], label: 'Delete', emit: 'delete' }
                 ]">
                 <template #btn>
-                    <span class=" mr-2">More</span>
-                    <FontAwesomeIcon :icon="['fas', 'chevron-down']" />
+                    <span class=" mr-2 max-sm:text-[10px]">More</span>
+                    <FontAwesomeIcon class="max-sm:text-[10px]" :icon="['fas', 'chevron-down']" />
                 </template>
             </dropdown>
         </ul>
