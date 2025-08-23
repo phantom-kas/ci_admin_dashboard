@@ -113,6 +113,7 @@ onBeforeRouteUpdate(() => {
 
 .open {
     height: 100vh;
+    @apply h-dvh
     /* height: 100dvh; */
     /* width: min(300px, calc(100% - 2rem)); */
 
