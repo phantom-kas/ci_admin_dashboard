@@ -103,6 +103,6 @@ onMounted(async () => {
             </template>
         </transition-group>
     </component>
-    <painationElement @changePage="fetchContent()" v-if="showPaginationControls" :data :itemsPerPage />
+    <painationElement  :disabled="loading" @changePage="fetchContent()" v-if="showPaginationControls" :data :itemsPerPage />
 </template>
 <style scoped></style>
