@@ -84,6 +84,15 @@ const searchFn = debounce((e: string) => {
     listParams = { search: e }
     listKey.value += 1
 }, 500);
+
+const pl = ref([] as any[])
+const testDel = (ea: any) => {
+    console.log(tracks.value)
+    window.alert('ivle ' + tracks.value.length + ' \n FList = ' + pl.value.length)
+    tracks.value.splice(tracks.value.findIndex((e) => e.id == ea.id), 1);
+    pl.value.splice(pl.value.findIndex((e) => e.id == ea.id), 1)
+    window.alert('ivle ' + tracks.value.length + ' \n FList = ' + pl.value.length)
+}
 </script>
 <template>
     <div class="flex flex-col justify-start items-center gap-y-6 w-full pt-10 ">
@@ -106,7 +115,7 @@ const searchFn = debounce((e: string) => {
         <!-- {{tracks}} -->
         <!-- {{ track }} -->
         <!-- {{ listParams }} -->
-        <alltracks :params="listParams" :key="listKey"
+        <alltracks @paginationList="e => pl = e" :params="listParams" :key="listKey"
             @edit="e => { track = e; router.push({ name: 'edit-track', params: { id: e.id } }) }"
             @editImage="e => { track = e; router.push({ name: 'edit-track-image', params: { id: e.id } }) }"
             @delete="e => { track = e; showConfirm = true }" @fullList="e => tracks = e" class=" w-full" />

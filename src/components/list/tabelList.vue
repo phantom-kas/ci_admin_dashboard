@@ -85,7 +85,7 @@ const emit = defineEmits(['fullList', 'clicked','paginationList'])
             class="w-full text-sm   text-left rtl:text-right text-neutral-500 dark:text-neutral-400 table-auto">
             <template #table_header>
                 <thead
-                    class="text-xs text-neutral-700 uppercase w-full bg-neutral-100 dark:bg-neutral-700 dark:text-neutral-400 @[1px]:hidden">
+                    class="text-xs text-neutral-700 uppercase w-full bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-200 @[1px]:hidden">
 
                     <tr>
                         <th v-if="showSelect"></th>

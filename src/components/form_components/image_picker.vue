@@ -145,7 +145,7 @@ const handlepreview = async () => {
 
 </script>
 <template>
-  <section class="flex flex-col items-center w-full pt-8 theme1cont"  v-bind="$attrs">
+  <section class="flex flex-col items-center w-full pt-8 theme1cont" v-bind="$attrs">
     <div class="w-full flex justify-center " v-show="imageSrc">
       <!-- <img ref="img" class=" hidden w-0 h-0" alt="" /> -->
 
@@ -156,8 +156,8 @@ const handlepreview = async () => {
         <cropper-handle action="select" plain />
         <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0)" />
 
-        <cropper-selection :aspectRatio :width="200" :height="200" :initialAspectRatio="aspectRatio" ref="cropperSelectionp"
-          movable resizable outlined>
+        <cropper-selection :aspectRatio :width="200" :height="200" :initialAspectRatio="aspectRatio"
+          ref="cropperSelectionp" movable resizable outlined>
           <cropper-handle action="sw-resize" />
           <cropper-handle action="se-resize" />
           <cropper-handle action="ne-resize" />

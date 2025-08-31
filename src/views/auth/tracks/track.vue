@@ -4,7 +4,6 @@ import { anyCurrency, getImageUrl } from '@/composabels/utilities';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onMounted, ref } from 'vue';
-import spinLinePules from '@/components/spinners/spinLinePules.vue'
 import { useRoute, useRouter } from 'vue-router';
 import screen2 from '@/components/container/screen2.vue';
 import createTrack from './createTrack.vue';
@@ -13,6 +12,7 @@ import image_picker from '@/components/form_components/image_picker.vue';
 import avatar1 from '@/components/avatars/avatar1.vue';
 import closeRow from '@/components/container/closeRow.vue';
 import rating from '@/components/rating.vue';
+import SpinBig from '@/components/spinners/spinBig.vue';
 const props = defineProps({
     id: {
         type: String
@@ -159,10 +159,7 @@ const handelEdit = (e: any) => {
         </div>
     </div>
 
-    <div v-else-if="!hasLoaded"
-        class=" mx-auto my-auto flex items-center justify-center p-6 bg-blue rounded-4xl dark:bg-[none]">
-        <spinLinePules />
-    </div>
+    <SpinBig v-else-if="!hasLoaded"/>
 
     <screen2 @close="router.go(-1)"
         v-if="route.name == 'edit-track-track' || route.name == 'edit-track-image-track' || route.name == 'track-courses'"

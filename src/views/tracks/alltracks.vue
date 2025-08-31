@@ -27,7 +27,7 @@ defineProps({
         default: 10
     }
 })
-const emit = defineEmits(['fullList', 'edit', 'delete', 'editImage'])
+const emit = defineEmits(['fullList', 'edit', 'delete', 'editImage','paginationList'])
 onMounted(() => {
     // emit('fullList', tracks)
 })
@@ -49,7 +49,7 @@ let listParams = { search: undefined as undefined | string }
     <div class="w-full flex flex-col gap-y-6 items-start justify-start">
         <!-- {{ tracks }} -->
           <!-- {{ params }} -->
-        <paginationList :params :itemsPerPage @fullList="e => emit('fullList', e)" :showPaginationControls component="div"
+        <paginationList @paginationList="e=>emit('paginationList',e)" :params :itemsPerPage @fullList="e => emit('fullList', e)" :showPaginationControls component="div"
             class="w-full  gap-x-7 tracks  gap-y-7 grid lg:grid-cols-4 sm:grid-cols-2 place-items-center items-stretch"
             url="/tracks">
             <template #items="{ item, i }">

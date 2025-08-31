@@ -126,6 +126,15 @@ const searchFn = debounce((e: string) => {
     listParams = { search: e }
     listKey.value += 1
 }, 500);
+
+
+const testDel = (ea:any) => {
+    console.log(users.value)
+    window.alert('ivle ' + users.value.length + ' \n FList = ' + pl.length)
+    users.value.splice(users.value.findIndex((e) => e.id == ea.id), 1);
+    pl.splice(pl.findIndex((e) => e.id == ea.id), 1)
+    window.alert('ivle ' + users.value.length + ' \n FList = ' + pl.length)
+}
 </script>
 <template>
     <div class="w-full flex flex-col gap-y-4 pt-10 ">
@@ -144,7 +153,7 @@ const searchFn = debounce((e: string) => {
                 </buttonLoads>
             </router-link>
         </form>
-        <tabelList :key="listKey" :params="{type:type == 'learners'?'learners':'admins',...listParams}"  beark-point="710px" class=" mt-2" @clicked="e => getSingleUser(e.id)" action-col
+        <tabelList :key="listKey"  @pagination-list="e => pl = e" :params="{type:type == 'learners'?'learners':'admins',...listParams}"  beark-point="710px" class=" mt-2" @clicked="e =>{ getSingleUser(e.id)}" action-col
             @full-list="e => users = e" :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
                 { key: 'email', title: 'Email address' },

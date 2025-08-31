@@ -25,7 +25,7 @@ const handelDelete = (id: string | number, i: number) => {
 
         // window.alert(i)
         invoices.value.splice(invoices.value.findIndex((e) => e.id == id), 1);
-        pl.value.splice(pl.value.findIndex((e) => e.id == id),1)
+        pl.value.splice(pl.value.findIndex((e) => e.id == id), 1)
         showConfirm.value = false;
 
     });
@@ -48,11 +48,27 @@ const searchFn = debounce((e: string) => {
     listKey.value += 1
 }, 500);
 
+
+const testDel = (ea:any) => {
+    console.log(invoices.value)
+    window.alert('ivle ' + invoices.value.length + ' \n FList = ' + pl.value.length)
+    invoices.value.splice(invoices.value.findIndex((e) => e.id == ea.id), 1);
+    pl.value.splice(pl.value.findIndex((e) => e.id == ea.id), 1)
+    window.alert('ivle ' + invoices.value.length + ' \n FList = ' + pl.value.length)
+
+}
+
+const cl = (e:any) => {
+
+    console.log('---------------------+=============')
+    console.log(e)
+    console.log('---------------------+=============')
+}
 </script>
 <template>
     <div class="w-max1200 flex flex-col gap-y-4 pt-10">
         <form @submit.prevent="" class=" w-full flex flex-row justify-between flex-wrap gap-7">
-            <search_input @input="e=>searchFn(e)"/>
+            <search_input @input="e => searchFn(e)" />
             <router-link :to="{ name: 'add-invoice' }">
                 <buttonLoads type="button" class="sm:w-[200px]">
                     <template #label>
@@ -65,8 +81,9 @@ const searchFn = debounce((e: string) => {
             </router-link>
         </form>
         <!-- {{ invoices }} -->
-        <tabelList :key="listKey"  :params="listParams" @pagination-list="e => pl = e" @full-list="e => invoices = e" url="invoices" beark-point="710px"
-            class=" mt-2" actionCol :listMapper="[
+        <tabelList :key="listKey" :params="listParams" @pagination-list="e => pl = e"
+            @fullList="e => { invoices = e, cl(e) }" url="invoices" beark-point="710px" class=" mt-2" actionCol
+            :listMapper="[
                 { key: '_allItems', title: 'User', slotName: 'cc' },
                 { key: 'track', title: 'Track' },
                 // { key: 'id', title: 'ID' },
@@ -84,15 +101,13 @@ const searchFn = debounce((e: string) => {
                 </Avatar1>
             </template>
 
-            <template #amount="{ item}">
+            <template #amount="{ item }">
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
-            <template #paid="{ item}">
+            <template #paid="{ item }">
                 <span class=" w-full text-right"> {{ anyCurrency(item) }}</span>
             </template>
             <template #status="{ item }">
-
-
                 <Dropdown v-if="item == 'pending'" :options="[
                     { label: 'Pending', icon: ['far', 'clock'], emit: 'pending' },
                     { label: 'Paid', icon: ['fas', 'check'], emit: 'paid' }]">
@@ -102,7 +117,6 @@ const searchFn = debounce((e: string) => {
                                 class="w-fit text-right capitalize py-1 px-2 font-[500] text-xs rounded-2xl flex items-center justify-center"
                                 :class="{ ' bg-amber-400 text-amber-950': item == 'pending', ' bg-green-500 text-green-950': item == 'paid' }">
                                 {{ item }}</span>
-
                             <FontAwesomeIcon :icon="['fas', 'chevron-down']" />
                         </div>
                     </template>
